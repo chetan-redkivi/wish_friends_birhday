@@ -9,6 +9,7 @@ gem 'mysql2','0.2.7'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'koala'
+gem 'pg'
 # Use unicorn as the web server
 # gem 'unicorn'
 
