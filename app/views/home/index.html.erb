@@ -11,11 +11,7 @@
 		<%=text_area_tag("feed","")%>
 		<%=submit_tag("Post on Facebook wall")%>
 	<%end%>
-	<%=Time.now%>
-	<%current_date = Date.today.strftime('%m-%d-%Y').split('-')%>
-	<%@today_birthday = []%>
-	<%@result = []%>
-	<%upcomming = current_date[1].to_i+10%>
+	<%=DateTime.now.new_offset(@profile["timezone"]/24)%>
 <!--
 	<table border="1" width="50%" align="center">
 		<tr>
@@ -35,17 +31,17 @@
 				<td>
 					<%if !friend["birthday"].nil?%>
 						<%=birthday = friend["birthday"].split('/')%>
-						<%if current_date[0] == birthday[0]%>
+						<%if @current_date[0] == birthday[0]%>
 -->
 							<!--month is same-->
 <!--
-								<%if current_date[1]==birthday[1]%>
+								<%if @current_date[1]==birthday[1]%>
 -->
 									<!--Date is same-->
 <!--
 										<%@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}%>
 								<%end%>
-								<%if birthday[1].to_i > current_date[1].to_i && birthday[1].to_i < upcomming%>
+								<%if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcomming%>
 									<%@result << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]} %>
 								<%end%>
 						<%end%>
@@ -91,7 +87,7 @@
 
 		<tr>
 			<td colspan="3" align="center">
-				<strong>Upcomming BirthDay</strong>
+				<strong>@upcomming BirthDay</strong>
 			</td>
 		</tr>
 		<tr>
