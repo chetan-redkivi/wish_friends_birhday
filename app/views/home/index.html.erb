@@ -214,17 +214,18 @@
 					<strong class="subHeading">We Will Apriceate Your FeedBack</strong>
 					<div class="columns">
 						<div class="half">
+							<%=form_for @feedback,:url => {:action => "addFeedback"},:html => {:class=>"form"} do |f|%>
 							<form action="#" class="form">
 								<fieldset>
 									<h2>Feedback form</h2>
 									<div class="formRow">
-										<div class="textField"><input type="text" placeholder="Your name ..." /></div>
+										<div class="textField"><%=f.text_field :name,:placeholder => "Your name ..."%></div>
 									</div>
 									<div class="formRow">
-										<div class="textField"><input type="text" placeholder="Your Email ..." /></div>
+										<div class="textField"><%=f.text_field :email,:placeholder => "Your email ..."%></div>
 									</div>
 									<div class="formRow">
-										<div class="textField"><textarea cols="20" rows="4" placeholder="Your Email ..."></textarea></div>
+										<div class="textField"><%=f.text_area :comment,:cols =>"20",:rows => "4",:placeholder => "cc"%></div>
 									</div>
 									<div class="formRow">
 										<button class="btnSmall btn submit right">
@@ -232,7 +233,7 @@
 										</button>
 									</div>
 								</fieldset>
-							</form>
+							<%end%>
 						</div>
 						<div class="half">
 							<h2>How to find us</h2>

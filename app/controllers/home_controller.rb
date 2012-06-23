@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index
 #  	render :text => params.inspect and return false
+@feedback = Feedback.new
 		if !session[:access_token].nil?
 			@graph = Koala::Facebook::API.new(session[:access_token])
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
@@ -49,6 +50,11 @@ class HomeController < ApplicationController
 		redirect_to "/"
 	end
 
-	def defaultMsz
+	def addFeedback
+		@feedback  = Feedback.new(params[:feedback])
+		if @feedback.save
+			redirect_to "/"
+		else
+		end
 	end
 end
