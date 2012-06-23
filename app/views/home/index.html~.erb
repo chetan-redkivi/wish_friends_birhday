@@ -1,0 +1,132 @@
+<h1>Hello! Friends, Who have birthday today, You can wish them in a single click :))</h1>
+
+<% unless user_signed_in? -%>
+  <p><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></p>
+<% end -%>
+<%if user_signed_in?%>
+	<%=flash[:notice]%>
+	<%=link_to "Logout","users/sign_out"%>
+	<%=image_tag("#{session[:image]}")%>
+	<%=form_tag "/feed" do %>
+		<%=text_area_tag("feed","")%>
+		<%=submit_tag("Post on Facebook wall")%>
+	<%end%>
+	<%#=DateTime.now.new_offset(@profile["timezone"]/24)%>
+<!--
+	<table border="1" width="50%" align="center">
+		<tr>
+			<th>
+				Name
+			</th>
+			<th>
+				BirthDay
+			</th>
+			<th>
+				ID
+			</th>
+		</tr>
+		<%@friends_profile.each do |friend|%>
+		<tr>
+				<td><%=friend["name"]%></td>
+				<td>
+					<%if !friend["birthday"].nil?%>
+						<%=birthday = friend["birthday"].split('/')%>
+						<%if @current_date[0] == birthday[0]%>
+-->
+							<!--month is same-->
+<!--
+								<%if @current_date[1]==birthday[1]%>
+-->
+									<!--Date is same-->
+<!--
+										<%@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}%>
+								<%end%>
+								<%if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcomming%>
+									<%@result << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]} %>
+								<%end%>
+						<%end%>
+					<%else%>
+						<%=friend["birthday"]%>
+					<%end%>
+				</td>
+				<td><%=friend["id"]%></td>
+		</tr>
+		<%end%>
+	</table>
+-->
+
+	<table border="0" width="50%" align="center">
+		<tr>
+			<td colspan="3" align="center">
+				<strong>Today's BirthDay</strong>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Name
+			</th>
+			<th>
+				BirthDate
+			</th>
+
+		</tr>
+		<%@today_birthday.each do |friend|%>
+		<tr>
+			<td align="center">
+				<%=friend["name"]%>
+			</td>
+			<td align="center">
+				<%=friend["birthday"]%>
+			</td>
+		</tr>
+		<%end%>
+		<tr>
+			<td>
+				<%=form_tag "/" do%>
+					<%=hidden_field_tag 'defaultMsz', 'defaultMsz'%>
+					<%=submit_tag("Wish them in Single Click")%>
+				<%end%>
+			</td>
+			<td>
+				<%=form_tag "/" do%>
+					<%=text_area_tag 'customMsz', '',:size=>"50x10"%>
+					<%=submit_tag("Wish them with ur quote")%>
+				<%end%>
+			</td>
+		</tr>
+	</table>
+	<%if !@result.blank?%>
+	<table border="1" width="50%" align="center">
+		<tr>
+			<td colspan="2" height="10%">
+					&nbsp;
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" align="center">
+				<strong>Upcomming BirthDay</strong>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				Name
+			</th>
+			<th>
+				BirthDate
+			</th>
+		</tr>
+
+		<%@result.each do |friend|%>
+		<tr>
+			<td align="center">
+				<%=friend["name"]%>
+			</td>
+			<td align="center">
+				<%=friend["birthday"]%>
+			</td>
+		</tr>
+		<%end%>
+	</table>
+	<%end%>
+
+<%end%>

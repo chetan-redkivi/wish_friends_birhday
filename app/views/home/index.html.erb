@@ -1,16 +1,47 @@
-<h1>Hello! Friends, Who have birthday today, You can wish them in a single click :))</h1>
+	<div id="pagewidth">
+		<header id="header">
+			<div class="center">
+				<nav id="mainNav">
+					<ul>
+<!--
+						<li><a href="#threeColumnLayout"><span>3 columns</span></a></li>
+						<li><a href="#boxes"><span>boxes</span></a></li>
+-->
+						<li class="active"><a href="#pagewidth"><span>Home</span></a></li>
+						<li><a href="#twoColumnLayout"><span>Let's Start</span></a></li>
+						<li><a href="#testiomonialsTab"><span>testimonials</span></a></li>
+						<li><a href="#contactUs"><span>contact us</span></a></li>
+						<% if user_signed_in? -%>
+							<li><%=link_to "Logout","users/sign_out"%></li>
+						<%end%>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<div id="content">
+			<section class="row">
+				<div class="center">
+					<h1>Wish Friends Birthday</h1>
+					<strong class="subHeading"> Hello! Friends, Who have birthday today, You can wish them in a single click :))</strong>
+				</div>
+			</section>
+			<section id="twoColumnLayout" class="row grey">
+				<div class="center">
+
+
+
+
+
+
 
 <% unless user_signed_in? -%>
-  <p><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></p>
+<h1>Let's Start (Click on f icon)</h1>
+<div style="margin-left:34%;">
+	<%=link_to image_tag("facebook.png"), user_omniauth_authorize_path(:facebook),:tag=>"Click For Facebook Login" %>
 <% end -%>
 <%if user_signed_in?%>
+<div>
 	<%=flash[:notice]%>
-	<%=link_to "Logout","users/sign_out"%>
-	<%=image_tag("#{session[:image]}")%>
-	<%=form_tag "/feed" do %>
-		<%=text_area_tag("feed","")%>
-		<%=submit_tag("Post on Facebook wall")%>
-	<%end%>
 	<%#=DateTime.now.new_offset(@profile["timezone"]/24)%>
 <!--
 	<table border="1" width="50%" align="center">
@@ -54,11 +85,17 @@
 		<%end%>
 	</table>
 -->
-
-	<table border="0" width="50%" align="center">
+<table border="0" width="100%" align="center">
+	<tr>
+		<td align ="center">
+			<%=image_tag("#{session[:image]}")%>
+		</td>
+	</tr>
+</table>
+	<table border="1" width="100%" align="center">
 		<tr>
-			<td colspan="3" align="center">
-				<strong>Today's BirthDay</strong>
+			<td colspan="2" align="center">
+				<h2>Today's BirthDay</h2>
 			</td>
 		</tr>
 		<tr>
@@ -72,7 +109,7 @@
 		</tr>
 		<%@today_birthday.each do |friend|%>
 		<tr>
-			<td align="center">
+			<td align="center" width="50%">
 				<%=friend["name"]%>
 			</td>
 			<td align="center">
@@ -80,31 +117,18 @@
 			</td>
 		</tr>
 		<%end%>
-		<tr>
-			<td>
-				<%=form_tag "/" do%>
-					<%=hidden_field_tag 'defaultMsz', 'defaultMsz'%>
-					<%=submit_tag("Wish them in Single Click")%>
-				<%end%>
-			</td>
-			<td>
-				<%=form_tag "/" do%>
-					<%=text_area_tag 'customMsz', '',:size=>"50x10"%>
-					<%=submit_tag("Wish them with ur quote")%>
-				<%end%>
-			</td>
-		</tr>
 	</table>
+	</br>
+<%=form_tag "/" do%>
+	<%=hidden_field_tag 'defaultMsz', 'defaultMsz'%>
+	<%=submit_tag("Wish them in Single Click",:class=> "btnSmall btn submit right")%></br></br>
+<%end%>
+</br></br>
 	<%if !@result.blank?%>
-	<table border="1" width="50%" align="center">
-		<tr>
-			<td colspan="2" height="10%">
-					&nbsp;
-			</td>
-		</tr>
+	<table border="1" width="100%" align="center">
 		<tr>
 			<td colspan="3" align="center">
-				<strong>Upcomming BirthDay</strong>
+				<h2>Upcomming BirthDay</h2>
 			</td>
 		</tr>
 		<tr>
@@ -118,7 +142,7 @@
 
 		<%@result.each do |friend|%>
 		<tr>
-			<td align="center">
+			<td align="center" width="50%">
 				<%=friend["name"]%>
 			</td>
 			<td align="center">
@@ -128,5 +152,102 @@
 		<%end%>
 	</table>
 	<%end%>
+				</br></br></br>
+				<h3>OR if you want to write your message/quote for your friends write here</h3>
+				<%=form_tag "/" do%>
+					<%=text_area_tag 'customMsz', '',:placeholder => "Write Your own message...",:size=>"50x10"%></br></br>
+					<%=submit_tag("Wish them with ur quote",:class => "btnSmall btn submit right")%>
+				<%end%>
 
 <%end%>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					</div>
+				</div>
+			</section>
+
+
+
+
+			<section id="testiomonialsTab" class="row">
+				<div class="center">
+					<h1>Testimonials</h1>
+					<strong class="subHeading">The Words which gives me motivation on my works ....</strong>
+					<div id="testimonials" class="gallery">
+						<ul class="slides">
+							<li>
+								<div class="row">
+									<blockquote>
+										<q>Kuch AAcha AAcha Likna Yaar :) </q>
+									</blockquote>
+									<blockquote>
+										<q>Kuch AAcha AAcha Likna Yaar :) </q>
+									</blockquote>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<section id="contactUs" class="row grey">
+				<div class="center">
+					<h1>Contact Us</h1>
+					<strong class="subHeading">We Will Apriceate Your FeedBack</strong>
+					<div class="columns">
+						<div class="half">
+							<form action="#" class="form">
+								<fieldset>
+									<h2>Feedback form</h2>
+									<div class="formRow">
+										<div class="textField"><input type="text" placeholder="Your name ..." /></div>
+									</div>
+									<div class="formRow">
+										<div class="textField"><input type="text" placeholder="Your Email ..." /></div>
+									</div>
+									<div class="formRow">
+										<div class="textField"><textarea cols="20" rows="4" placeholder="Your Email ..."></textarea></div>
+									</div>
+									<div class="formRow">
+										<button class="btnSmall btn submit right">
+											<span>Send Message</span>
+										</button>
+									</div>
+								</fieldset>
+							</form>
+						</div>
+						<div class="half">
+							<h2>How to find us</h2>
+							<div id="map">
+								<div class="imgHolder"><%=image_tag("map.jpg",:alt=>"google map")%></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<footer id="footer">
+			<div class="center">
+				<span class="copy">Created by <a href="http://webcodebuilder.com">WebCodeBuilder.com</a></span>
+				Subscribe to our <a href="http://webcodebuilder.com/feed/">blog</a> and follow us on <a href="https://twitter.com/#!/webcodebuilder">Twitter</a>
+			</div>
+		</footer>
+	</div>
