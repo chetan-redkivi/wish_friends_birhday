@@ -5,9 +5,8 @@ class HomeController < ApplicationController
 			feed = @graph.get_connections("me", "feed")
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
 			profile = @graph.get_object("me")
-#			render :text =>profile.inspect and return false
 			session[:image]= @graph.get_picture("me",:type=>"large")
-			current_date = Date.today.strftime('%m-%d-%Y').split('-')
+			current_date = DateTime.now.new_offset(profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
 			@today_birthday = []
 			@result = []
 			upcomming = current_date[1].to_i+5
