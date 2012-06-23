@@ -6,7 +6,7 @@ class HomeController < ApplicationController
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
 			profile = @graph.get_object("me")
 #			render :text =>profile.inspect and return false
-			session[:image]= @graph.get_picture("1310835663",:type=>"large")
+			session[:image]= @graph.get_picture("me",:type=>"large")
 			current_date = Date.today.strftime('%m-%d-%Y').split('-')
 			@today_birthday = []
 			@result = []
