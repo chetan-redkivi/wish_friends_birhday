@@ -1,4 +1,4 @@
-<h1>Hello! All Friends, Who have birthday today, You can wish them in a single click :))</h1>
+<h1>Hello! Friends, Who have birthday today, You can wish them in a single click :))</h1>
 
 <% unless user_signed_in? -%>
   <p><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></p>
@@ -95,7 +95,7 @@
 			</td>
 		</tr>
 	</table>
-
+	<%if !@result.blank?%>
 	<table border="1" width="50%" align="center">
 		<tr>
 			<td colspan="2" height="10%">
@@ -127,6 +127,6 @@
 		</tr>
 		<%end%>
 	</table>
-
+	<%end%>
 
 <%end%>
