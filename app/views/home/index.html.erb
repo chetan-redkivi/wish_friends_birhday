@@ -11,6 +11,7 @@
 		<%=text_area_tag("feed","")%>
 		<%=submit_tag("Post on Facebook wall")%>
 	<%end%>
+	<%=Time.now%>
 	<%current_date = Date.today.strftime('%m-%d-%Y').split('-')%>
 	<%@today_birthday = []%>
 	<%@result = []%>
