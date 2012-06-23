@@ -1,5 +1,7 @@
 WishFriendsBirhday::Application.routes.draw do
   get "home/index"
+	match "/feed" => "home#facefeed"
+	match "/defaultMsz" => "home#defaultMsz"
 
 	devise_scope :user do
 		match 'users/sign_out' => 'devise/sessions#destroy'

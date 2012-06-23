@@ -1,4 +1,4 @@
-<h1>Hello!</h1>
+<h1>Hello! All Friends, whose have birthday today, You can wishing them in a single click :))</h1>
 
 <% unless user_signed_in? -%>
   <p><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></p>
@@ -11,7 +11,7 @@
 		<%=text_area_tag("feed","")%>
 		<%=submit_tag("Post on Facebook wall")%>
 	<%end%>
-	<%=DateTime.now.new_offset(@profile["timezone"]/24)%>
+	<%#=DateTime.now.new_offset(@profile["timezone"]/24)%>
 <!--
 	<table border="1" width="50%" align="center">
 		<tr>
@@ -55,7 +55,7 @@
 	</table>
 -->
 
-	<table border="1" width="50%" align="center">
+	<table border="0" width="50%" align="center">
 		<tr>
 			<td colspan="3" align="center">
 				<strong>Today's BirthDay</strong>
@@ -70,7 +70,6 @@
 			</th>
 
 		</tr>
-
 		<%@today_birthday.each do |friend|%>
 		<tr>
 			<td align="center">
@@ -81,13 +80,31 @@
 			</td>
 		</tr>
 		<%end%>
+		<tr>
+			<td>
+				<%=form_tag "/" do%>
+					<%=hidden_field_tag 'defaultMsz', 'defaultMsz'%>
+					<%=submit_tag("Wish them in Single Click")%>
+				<%end%>
+			</td>
+			<td>
+				<%=form_tag "/" do%>
+					<%=text_area_tag 'customMsz', '',:size=>"50x10"%>
+					<%=submit_tag("Wish them with ur quote")%>
+				<%end%>
+			</td>
+		</tr>
 	</table>
 
 	<table border="1" width="50%" align="center">
-
+		<tr>
+			<td colspan="2" height="10%">
+					&nbsp;
+			</td>
+		</tr>
 		<tr>
 			<td colspan="3" align="center">
-				<strong>@upcomming BirthDay</strong>
+				<strong>Upcomming BirthDay</strong>
 			</td>
 		</tr>
 		<tr>
