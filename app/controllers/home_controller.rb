@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   def index
 #  	render :text => params.inspect and return false
 		@feedback = Feedback.new
+		@testinomial = Feedback.find(:first)
 		@json = Location.all.to_gmaps4rails
 		if !session[:access_token].nil?
 			@graph = Koala::Facebook::API.new(session[:access_token])
