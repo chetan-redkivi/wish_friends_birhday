@@ -1,4 +1,8 @@
 WishFriendsBirhday::Application.routes.draw do
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
   get "home/index"
 	match "/feed" => "home#facefeed"
 	match "/defaultMsz" => "home#defaultMsz"

@@ -237,8 +237,8 @@
 						</div>
 						<div class="half">
 							<h2>How to find us</h2>
-							<div id="map">
-								<div class="imgHolder"><%=image_tag("map.jpg",:alt=>"google map")%></div>
+							<div id="map" style="height:375px;">
+								<div class="imgHolder" ><%=gmaps4rails(@json)%></div>
 							</div>
 						</div>
 					</div>

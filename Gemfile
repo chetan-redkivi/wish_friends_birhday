@@ -10,6 +10,8 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem 'koala'
 gem 'pg'
+gem 'gmaps4rails'
+gem 'activeadmin'
 # Use unicorn as the web server
 # gem 'unicorn'
 
