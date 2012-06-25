@@ -380,6 +380,7 @@
 	textarea {
 		overflow:auto;
 		height:10.812em;
+		width: 470px;
 	}
 	* +html input,
 	* +html textarea,

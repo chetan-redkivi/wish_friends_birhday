@@ -11,7 +11,7 @@ class HomeController < ApplicationController
 			session[:image]= @graph.get_picture("me",:type=>"large")
 			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
 	#		render :text => @current_date.inspect and return false
-			@today_birthday = []
+			@today_birthday_ids = []
 			@result = []
 			@upcomming = @current_date[1].to_i+10
 			@friends_profile.each do |friend|
@@ -21,21 +21,21 @@ class HomeController < ApplicationController
 						#month is same
 						if @current_date[1]==birthday[1]
 							#Date is same
-							@today_birthday << friend["id"]
+							@today_birthday_ids << friend["id"]
 						end
 					end
 				end
 			end
 
 			if !params["defaultMsz"].nil?
-				@today_birthday.each do |id|
+				@today_birthday_ids.each do |id|
 					@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
 				end
 				flash[:notice] = ""
 			end
 			if !params["customMsz"].nil?
 				if !params["customMsz"].blank?
-					@today_birthday.each do |id|
+					@today_birthday_ids.each do |id|
 						@graph.put_wall_post("#{params["customMsz"]}", {}, id)
 					end
 				else

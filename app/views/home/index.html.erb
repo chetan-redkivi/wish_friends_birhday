@@ -22,7 +22,7 @@
 			<section class="row">
 				<div class="center">
 					<h1>Wish Friends Birthday</h1>
-					<strong class="subHeading"> Hello! Friends, Who have birthday today, You can wish them in a single click :))</strong>
+					<strong class="subHeading"> Hello! Friends, Who have birthday today on facebook , You can wish them in a single click :))</strong>
 				</div>
 			</section>
 			<section id="twoColumnLayout" class="row grey">
@@ -43,6 +43,7 @@
 <div>
 	<%=flash[:notice]%>
 	<%#=DateTime.now.new_offset(@profile["timezone"]/24)%>
+<%@today_birthday = []%>
 <!--
 	<table border="1" width="50%" align="center">
 		<tr>
@@ -92,13 +93,17 @@
 		</td>
 	</tr>
 </table>
+
 	<table border="1" width="100%" align="center">
 		<tr>
-			<td colspan="2" align="center">
+			<td colspan="3" align="center">
 				<h2>Today's BirthDay</h2>
 			</td>
 		</tr>
 		<tr>
+			<th>
+				Image
+			</th>
 			<th>
 				Name
 			</th>
@@ -109,29 +114,32 @@
 		</tr>
 		<%@today_birthday.each do |friend|%>
 		<tr>
-			<td align="center" width="50%">
+			<td width="4">
+				<%=image_tag(@graph.get_picture(friend["id"]))%>
+			</td>
+			<td align="center" width="48%">
 				<%=friend["name"]%>
 			</td>
 			<td align="center">
-				<%=friend["birthday"]%>
+				<%=friend["birthday"]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}"%>
 			</td>
 		</tr>
 		<%end%>
 	</table>
-	</br>
-<%=form_tag "/" do%>
-	<%=hidden_field_tag 'defaultMsz', 'defaultMsz'%>
-	<%=submit_tag("Wish them in Single Click",:class=> "btnSmall btn submit right")%></br></br>
-<%end%>
+
+
 </br></br>
 	<%if !@result.blank?%>
-	<table border="1" width="100%" align="center">
+	<table style="border-style: solid;" width="100%" align="center">
 		<tr>
 			<td colspan="3" align="center">
 				<h2>Upcomming BirthDay</h2>
 			</td>
 		</tr>
 		<tr>
+			<th>
+				Image
+			</th>
 			<th>
 				Name
 			</th>
@@ -142,21 +150,30 @@
 
 		<%@result.each do |friend|%>
 		<tr>
-			<td align="center" width="50%">
+			<td width="4">
+				<%=image_tag(@graph.get_picture(friend["id"]))%>
+			</td>
+			<td align="center" width="48%">
 				<%=friend["name"]%>
 			</td>
 			<td align="center">
-				<%=friend["birthday"]%>
+				<%=friend["birthday"]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}"%>
 			</td>
 		</tr>
 		<%end%>
 	</table>
 	<%end%>
 				</br></br></br>
-				<h3>OR if you want to write your message/quote for your friends write here</h3>
+				<h3>Want to wish all Today's Birthday in Single Click</h3>
+			<%=form_tag "/" do%>
+				<%=hidden_field_tag 'defaultMsz', 'defaultMsz'%>
+				<%=submit_tag("Click Here",:class=> "btnSmall btn submit right",:style=>"margin-right:45%;")%></br></br>
+			<%end%>
+			</br></br>
+				<h3>OR <br>if you want to write your own message/quote for your friends write here</h3>
 				<%=form_tag "/" do%>
-					<%=text_area_tag 'customMsz', '',:placeholder => "Write Your own message...",:size=>"50x10"%></br></br>
-					<%=submit_tag("Wish them with ur quote",:class => "btnSmall btn submit right")%>
+					<%=text_area_tag 'customMsz', '',:placeholder => "Write Your own message...",:size=>"20x10"%></br></br>
+					<%=submit_tag("Click here for post on friends wall",:class => "btnSmall btn submit right",:style=>"margin-right:65%;")%>
 				<%end%>
 
 <%end%>
@@ -222,7 +239,7 @@
 										<div class="textField"><%=f.text_field :email,:placeholder => "Your email ..."%></div>
 									</div>
 									<div class="formRow">
-										<div class="textField"><%=f.text_area :comment,:cols =>"20",:rows => "4",:placeholder => "cc"%></div>
+										<div class="textField"><%=f.text_area :comment,:cols =>"20",:rows => "4",:placeholder => "Your feedback...."%></div>
 									</div>
 									<div class="formRow">
 										<button class="btnSmall btn submit right">
