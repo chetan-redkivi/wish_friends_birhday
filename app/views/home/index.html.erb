@@ -191,7 +191,7 @@
 			<section id="testiomonialsTab" class="row">
 				<div class="center">
 					<h1>Testimonials</h1>
-					<strong class="subHeading">The Words which gives me motivation on my works ....</strong>
+					<strong class="subHeading">The Words which give me motivation on my works ....</strong>
 					<div id="testimonials" class="gallery">
 						<ul class="slides">
 							<li>
@@ -208,7 +208,7 @@
 			<section id="contactUs" class="row grey">
 				<div class="center">
 					<h1>Contact Us</h1>
-					<strong class="subHeading">We Will Apriceate Your FeedBack</strong>
+					<strong class="subHeading">We Will Appreciate Your FeedBack</strong>
 					<div class="columns">
 						<div class="half">
 							<%=form_for @feedback,:url => {:action => "addFeedback"},:html => {:class=>"form"} do |f|%>
@@ -235,7 +235,7 @@
 						<div class="half">
 							<h2>How to find us</h2>
 							<div id="map" style="height:375px;">
-								<div class="imgHolder" ><%=gmaps4rails(@json)%></div>
+								<div class="imgHolder" ><%=gmaps("markers" => {"data" => @json}, "map_options" => {"processing" => "json", "auto_adjust" => false, "auto_zoom" => false, "zoom" => 16,"center_latitude" => "23.0396", "center_longitude" => "72.566"})%></div>
 							</div>
 						</div>
 					</div>
