@@ -10,7 +10,6 @@ class HomeController < ApplicationController
 			@profile = @graph.get_object("me")
 			session[:image]= @graph.get_picture("me",:type=>"large")
 			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
-	#		render :text => @current_date.inspect and return false
 			@today_birthday_ids = []
 			@result = []
 			@upcomming = @current_date[1].to_i+10
