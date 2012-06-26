@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
 			@today_birthday_ids = []
 			@result = []
-			@upcomming = @current_date[1].to_i+10
+			@upcomming = 31
 			@friends_profile.each do |friend|
 				if !friend["birthday"].nil?
 					birthday = friend["birthday"].split('/')
