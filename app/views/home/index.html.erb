@@ -25,18 +25,21 @@
 					<strong class="subHeading"> Hello! Friends, Who have birthday today on facebook , You can wish them in a single click :))</strong>
 					<table>
 						<tr>
-							<td>
+							<td valign="top">
 									<%=image_tag("chetank.jpg",:size=>"200x150")%>
 							</td>
 							<td>
 								&nbsp;
 							</td>
 							<td valign="top">
-									<p>Hey..Friends....My self Chetan..... :) , I m lazy about birthday wishing :)), so i thought if there are more than 2-3 facebook friends i have ,and i want to wish them, then i have to go to their wall :( ....means i have to open 2-3 profile.. :( so i thought why i should not create an app so that every one not only can get their facebook friends birthday information but also wish all of them with just a click. Now Apps is Here for you...  use and enjoy :)</p><br>
+									<p>Hey..Friends....My self Chetan..... :) , I m lazy about birthday wishing :)), so i thought if there are more than 2-3 or more facebook friends birthday i have ,and i want to wish them, then i have to go to their wall :( ....means i have to open each profile.. :( so i thought why i should not create an app so that every one not only can get their facebook friends birthday information but also wish all of them with just a click. Now Apps is Here for you...  use and enjoy :)</p>
 									<p>
 										One More importent thing if you have any suggestions/ideas for improving this apps you are most welcome :)) please inform me through feedback...
-									</p>
 
+									<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
+									</p>
+									<%= link_to image_tag('facebook_share.png',:size=>"78x26"), '#', :class => "fb_share"  %>
+									<%= facebook_share_once %>
 
 							</td>
 						</tr>
@@ -118,42 +121,52 @@
 				<h2>Today's BirthDay</h2>
 			</td>
 		</tr>
-		<tr>
-			<th>
-				Image
-			</th>
-			<th>
-				Name
-			</th>
-			<th>
-				BirthDate
-			</th>
+		<%if !@today_birthday.blank?%>
+			<tr>
+				<th>
+					Image
+				</th>
+				<th>
+					Name
+				</th>
+				<th>
+					BirthDate
+				</th>
 
-		</tr>
-		<%@today_birthday.each do |friend|%>
-		<tr>
-			<td width="4">
-				<%=image_tag(@graph.get_picture(friend["id"]))%>
-			</td>
-			<td align="center" width="48%">
-				<%=friend["name"]%>
-			</td>
-			<td align="center">
-				<%=friend["birthday"]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}"%>
-			</td>
-		</tr>
+			</tr>
+			<%@today_birthday.each do |friend|%>
+			<tr>
+				<td width="4">
+					<%=image_tag(@graph.get_picture(friend["id"]))%>
+				</td>
+				<td align="center" width="48%">
+					<%=friend["name"]%>
+				</td>
+				<td align="center">
+					<%=friend["birthday"]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}"%>
+				</td>
+			</tr>
+			<%end%>
+
+		<%else%>
+			<tr>
+				<td colspan="3" align="center">
+					<strong><p><font color="white">Today no friends have birthday</font></p></strong>
+				</td>
+			</tr>
 		<%end%>
+
 	</table>
 
 
 </br></br>
-	<%if !@result.blank?%>
 	<table border="1" width="100%" align="center">
 		<tr>
 			<td colspan="3" align="center">
 				<h2>Upcomming BirthDay</h2>
 			</td>
 		</tr>
+		<%if !@result.blank?%>
 		<tr>
 			<th>
 				Image
@@ -166,21 +179,28 @@
 			</th>
 		</tr>
 
-		<%@result.each do |friend|%>
-		<tr>
-			<td width="4">
-				<%=image_tag(@graph.get_picture(friend["id"]))%>
-			</td>
-			<td align="center" width="48%">
-				<%=friend["name"]%>
-			</td>
-			<td align="center">
-				<%=friend["birthday"]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}"%>
-			</td>
-		</tr>
+			<%@result.each do |friend|%>
+			<tr>
+				<td width="4">
+					<%=image_tag(@graph.get_picture(friend["id"]))%>
+				</td>
+				<td align="center" width="48%">
+					<%=friend["name"]%>
+				</td>
+				<td align="center">
+					<%=friend["birthday"]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}"%>
+				</td>
+			</tr>
+			<%end%>
+		<%else%>
+			<tr>
+				<td colspan="3" align="center">
+					<strong><p><font color="white">No Upcomming friends birthday upto 5 days</font></p></strong>
+				</td>
+			</tr>
 		<%end%>
+
 	</table>
-	<%end%>
 				</br></br></br>
 				<h3>Want to wish all Today's Birthday in Single Click</h3>
 			<%=form_tag "/" do%>
@@ -195,26 +215,6 @@
 				<%end%>
 
 <%end%>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 					</div>
 				</div>
@@ -232,7 +232,8 @@
 							<li>
 								<div class="row">
 									<blockquote>
-										<q><%=@testinomial.comment%><b>Surya Prakash Joshi</b> </q>
+										<q><%=@testinomial.comment%><b>Surya Prakash Joshi</b>
+										<br><%=image_tag(@graph.get_picture('100001232423838'))%> </q>
 									</blockquote>
 								</div>
 							</li>

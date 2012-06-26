@@ -50,6 +50,7 @@ GEM
       warden (~> 1.1)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    facebook_share (0.0.6)
     faraday (0.8.1)
       multipart-post (~> 1.1)
     fastercsv (1.5.5)
@@ -137,6 +138,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin
   devise
+  facebook_share
   gmaps4rails
   koala
   mysql2 (= 0.2.7)

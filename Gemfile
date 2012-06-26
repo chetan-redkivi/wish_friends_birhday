@@ -12,6 +12,7 @@ gem 'koala'
 gem 'pg'
 gem 'gmaps4rails'
 gem 'activeadmin'
+gem 'facebook_share'
 # Use unicorn as the web server
 # gem 'unicorn'
 
