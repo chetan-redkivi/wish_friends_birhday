@@ -2,13 +2,16 @@ class HomeController < ApplicationController
   def index
 #  	render :text => params.inspect and return false
 		@feedback = Feedback.new
+		@feedbacks = Feedback.find(:all)
 		@testinomial = Feedback.find(:first)
 		@json = Location.all.to_gmaps4rails
 		if !session[:access_token].nil?
 			@graph = Koala::Facebook::API.new(session[:access_token])
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
 			@profile = @graph.get_object("me")
+			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
+			render :text => @friends_profile.inspect and return false
 			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
 			@today_birthday_ids = []
 			@result = []
@@ -52,10 +55,11 @@ class HomeController < ApplicationController
 	end
 
 	def addFeedback
-		@feedback  = Feedback.new(params[:feedback])
-		if @feedback.save
-			redirect_to "/"
-		else
-		end
+			@feedback  = Feedback.new(params[:feedback])
+			@feedback.user_fb_id = session["id"]
+			if @feedback.save
+				redirect_to "/"
+			else
+			end
 	end
 end
