@@ -232,7 +232,7 @@
 							<li>
 								<div class="row">
 									<blockquote>
-										<q><%#=Feedback.find(:first).comment%><b>Surya Prakash Joshi</b>
+										<q><%=@testinomial.comment%><b>Surya Prakash Joshi</b>
 										<%if user_signed_in?%>
 										<br><%=image_tag(@graph.get_picture('100001232423838'))%> </q>
 										<%end%>
