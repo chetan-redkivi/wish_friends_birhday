@@ -12,6 +12,8 @@ class HomeController < ApplicationController
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
 			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
+			number_of_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i)).day
+			#render :text => number_of_days.inspect and return false
 			@today_birthday_ids = []
 			@result = []
 			@upcomming = 31
@@ -61,4 +63,5 @@ class HomeController < ApplicationController
 			else
 			end
 	end
+
 end
