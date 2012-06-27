@@ -56,7 +56,7 @@ class HomeController < ApplicationController
 
 	def addFeedback
 			@feedback  = Feedback.new(params[:feedback])
-			@feedback.user_fb_id = session["id"]
+			@feedback.fb_id = session["id"]
 			if @feedback.save
 				redirect_to "/"
 			else
