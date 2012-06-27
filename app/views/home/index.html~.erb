@@ -1,17 +1,68 @@
-<h1>Hello! Friends, Who have birthday today, You can wish them in a single click :))</h1>
+	<div id="pagewidth">
+		<header id="header">
+			<div class="center">
+				<nav id="mainNav">
+					<ul>
+<!--
+						<li><a href="#threeColumnLayout"><span>3 columns</span></a></li>
+						<li><a href="#boxes"><span>boxes</span></a></li>
+-->
+						<li class="active"><a href="#pagewidth"><span>Home</span></a></li>
+						<li><a href="#twoColumnLayout"><span>Let's Start</span></a></li>
+						<li><a href="#testiomonialsTab"><span>testimonials</span></a></li>
+						<li><a href="#contactUs"><span>contact us</span></a></li>
+						<% if user_signed_in? -%>
+							<li><%=link_to "Logout","users/sign_out"%></li>
+						<%end%>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<div id="content">
+			<section class="row">
+				<div class="center">
+					<h1>Wish Facebook Friends Birthday</h1>
+					<strong class="subHeading"> Today, If your more than two facebook friends have birthday , You can wish them in a single click :))</strong>
+					<table>
+						<tr>
+							<td valign="top" width="20%">
+									<%=image_tag("chetank.jpg",:size=>"200x150")%>
+							</td>
+							<td>
+								&nbsp;
+							</td>
+							<td valign="top">
+									<p>Hey..Friends....My self Chetan..... :) , I m lazy about birthday wishing :)), so i thought if there are more than 2-3 or more facebook friends birthday Today i have ,and i want to wish them, then i have to go to their wall :( ....means i have to open each profile.. :( so i thought why i should not create an app so that every one not only can get their facebook friends birthday information but also wish all of them with just a click. Now Apps is Here for you...  use and enjoy :)</p>
+									<p>
+										One More importent thing if you have any suggestions/ideas for improving this apps you are most welcome :)) please inform me through feedback...
+
+									<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
+									</p>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</section>
+			<section id="twoColumnLayout" class="row grey">
+				<div class="center">
+
+
+
+
+
+
 
 <% unless user_signed_in? -%>
-  <p><%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %></p>
+<h1>Let's Start (Click on f icon)</h1>
+<div style="margin-left:34%;">
+	<%=link_to image_tag("facebook.png"), user_omniauth_authorize_path(:facebook),:tag=>"Click For Facebook Login" %>
 <% end -%>
 <%if user_signed_in?%>
+<div>
 	<%=flash[:notice]%>
-	<%=link_to "Logout","users/sign_out"%>
-	<%=image_tag("#{session[:image]}")%>
-	<%=form_tag "/feed" do %>
-		<%=text_area_tag("feed","")%>
-		<%=submit_tag("Post on Facebook wall")%>
-	<%end%>
 	<%#=DateTime.now.new_offset(@profile["timezone"]/24)%>
+<%@today_birthday = []%>
+<%@next_month_bday={}%>
 <!--
 	<table border="1" width="50%" align="center">
 		<tr>
@@ -32,18 +83,22 @@
 					<%if !friend["birthday"].nil?%>
 						<%=birthday = friend["birthday"].split('/')%>
 						<%if @current_date[0] == birthday[0]%>
--->
 							<!--month is same-->
 <!--
+
 								<%if @current_date[1]==birthday[1]%>
--->
 									<!--Date is same-->
 <!--
 										<%@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}%>
 								<%end%>
 								<%if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcomming%>
-									<%@result << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]} %>
+									<%@result << {"name" => friend["name"],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]} %>
 								<%end%>
+						<%elsif birthday[0].to_i == @current_date[0].to_i+1%>
+							<%if birthday[1].to_i >=1 && birthday[1].to_i < (@upcomming-@total_days.to_i) %>
+								<%#@result << {"name" => friend["name"],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]} %>
+							<%end%>
+							<%@next_month_bday[birthday[1].to_i]  = {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}%>
 						<%end%>
 					<%else%>
 						<%=friend["birthday"]%>
@@ -53,80 +108,238 @@
 		</tr>
 		<%end%>
 	</table>
+
+<%@next_month_bdates = @next_month_bday.keys.sort%>
 -->
+<table border="0" width="100%" align="center">
+	<tr>
+		<td align ="center">
+			<%=image_tag("#{session[:image]}")%>
+		</td>
+	</tr>
+</table>
 
-	<table border="0" width="50%" align="center">
+	<table border="1" width="100%" align="center">
 		<tr>
 			<td colspan="3" align="center">
-				<strong>Today's BirthDay</strong>
+				<h2>Today's BirthDay</h2>
 			</td>
 		</tr>
+		<%if !@today_birthday.blank?%>
+			<tr>
+				<th>
+					Image
+				</th>
+				<th>
+					Name
+				</th>
+				<th>
+					BirthDate
+				</th>
+
+			</tr>
+			<%@today_birthday.each do |friend|%>
+			<tr>
+				<td width="4">
+					<%=image_tag(@graph.get_picture(friend["id"]))%>
+				</td>
+				<td align="center" width="48%">
+					<%=friend["name"]%>
+				</td>
+				<td align="center">
+					<%=friend["birthday"]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}"%>
+				</td>
+			</tr>
+			<%end%>
+
+		<%else%>
+			<tr>
+				<td colspan="3" align="center">
+					<strong><p><font color="white">Today no friends have birthday</font></p></strong>
+				</td>
+			</tr>
+		<%end%>
+
+	</table>
+
+
+</br></br>
+	<table border="1" width="100%" align="center">
 		<tr>
+			<td colspan="3" align="center">
+				<h2>This month Upcomming BirthDay</h2>
+			</td>
+		</tr>
+		<%if !@result.blank?%>
+		<tr>
+			<th>
+				Image
+			</th>
 			<th>
 				Name
 			</th>
 			<th>
 				BirthDate
 			</th>
-
-		</tr>
-		<%@today_birthday.each do |friend|%>
-		<tr>
-			<td align="center">
-				<%=friend["name"]%>
-			</td>
-			<td align="center">
-				<%=friend["birthday"]%>
-			</td>
-		</tr>
-		<%end%>
-		<tr>
-			<td>
-				<%=form_tag "/" do%>
-					<%=hidden_field_tag 'defaultMsz', 'defaultMsz'%>
-					<%=submit_tag("Wish them in Single Click")%>
-				<%end%>
-			</td>
-			<td>
-				<%=form_tag "/" do%>
-					<%=text_area_tag 'customMsz', '',:size=>"50x10"%>
-					<%=submit_tag("Wish them with ur quote")%>
-				<%end%>
-			</td>
-		</tr>
-	</table>
-	<%if !@result.blank?%>
-	<table border="1" width="50%" align="center">
-		<tr>
-			<td colspan="2" height="10%">
-					&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3" align="center">
-				<strong>Upcomming BirthDay</strong>
-			</td>
-		</tr>
-		<tr>
-			<th>
-				Name
-			</th>
-			<th>
-				BirthDate
-			</th>
 		</tr>
 
-		<%@result.each do |friend|%>
-		<tr>
-			<td align="center">
-				<%=friend["name"]%>
-			</td>
-			<td align="center">
-				<%=friend["birthday"]%>
-			</td>
-		</tr>
+			<%@result.each do |friend|%>
+			<tr>
+				<td width="4">
+					<%=image_tag(@graph.get_picture(friend["id"]))%>
+				</td>
+				<td align="center" width="48%">
+					<%=friend["name"]%>
+				</td>
+				<td align="center">
+					<%=friend["birthday"]%>
+				</td>
+			</tr>
+			<%end%>
+		<%else%>
+			<tr>
+				<td colspan="3" align="center">
+					<strong><p><font color="white">No Upcomming friends birthday upto 5 days</font></p></strong>
+				</td>
+			</tr>
 		<%end%>
+
 	</table>
-	<%end%>
+				</br></br></br>
+				<h3>Want to wish all Today's Birthday in Single Click</h3>
+			<%=form_tag "/" do%>
+				<%=hidden_field_tag 'defaultMsz', 'defaultMsz'%>
+				<%=submit_tag("Click Here",:class=> "btnSmall btn submit right",:style=>"margin-right:45%;")%></br></br>
+			<%end%>
+			</br></br>
+				<h3>OR <br>if you want to write your own message/quote for your friends write here</h3>
+				<%=form_tag "/" do%>
+					<%=text_area_tag 'customMsz', '',:placeholder => "Write Your own message...",:size=>"20x10"%></br></br>
+					<%=submit_tag("Click here for post on friends wall",:class => "btnSmall btn submit right",:style=>"margin-right:65%;")%>
+				<%end%>
 
 <%end%>
+</br></br></br></br>
+	<table border="1" width="100%" align="center">
+		<tr>
+			<td colspan="3" align="center">
+				<h2>Next Month Upcomming BirthDay</h2>
+			</td>
+		</tr>
+		<%if !@next_month_bday.blank?%>
+		<tr>
+			<th>
+				Image
+			</th>
+			<th>
+				Name
+			</th>
+			<th>
+				BirthDate
+			</th>
+		</tr>
+
+			<%@next_month_bdates.each do |birthdate|%>
+			<tr>
+				<td width="4">
+					<%=image_tag(@graph.get_picture(@next_month_bday[birthdate]["id"]))%>
+				</td>
+				<td align="center" width="48%">
+					<%=@next_month_bday[birthdate]["name"]%>
+				</td>
+				<td align="center">
+					<%=@next_month_bday[birthdate]["birthday"]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}"%>
+				</td>
+			</tr>
+			<%end%>
+		<%else%>
+			<tr>
+				<td colspan="3" align="center">
+					<strong><p><font color="white">No friends have birthday in this month</font></p></strong>
+				</td>
+			</tr>
+		<%end%>
+
+	</table>
+
+					</div>
+				</div>
+			</section>
+
+
+
+
+			<section id="testiomonialsTab" class="row">
+				<div class="center">
+					<h1>Testimonials/Feedbacks</h1>
+					<strong class="subHeading">The Words which give me motivation on my works ....</strong>
+					<div id="testimonials" class="gallery">
+						<ul class="slides">
+							<li>
+								<div class="row">
+									<blockquote>
+										<q>
+										<%if user_signed_in?%>
+											<%=image_tag(@graph.get_picture('100001232423838'))%><br>
+										<%end%>
+											<%=@testinomial.comment%><b><%=@testinomial.name%></b>
+										 </q>
+									</blockquote>
+									<blockquote>
+										<q>
+											<%if user_signed_in?%>
+												<%=image_tag(@graph.get_picture("#{Feedback.find(3).fb_id}"))%><br>
+											<%end%>
+											<%=Feedback.find(3).comment%><b><%=Feedback.find(3).name%></b>
+										 </q>
+									</blockquote>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			<section id="contactUs" class="row grey">
+				<div class="center">
+					<h1>Contact Me</h1>
+					<strong class="subHeading">I Will Appreciate Your FeedBack... :)</strong>
+					<div class="columns">
+						<div class="half">
+							<%=form_for @feedback,:url => {:action => "addFeedback"},:html => {:class=>"form"} do |f|%>
+							<form action="#" class="form">
+								<fieldset>
+									<h2>Feedback form</h2>
+									<div class="formRow">
+										<div class="textField"><%=f.text_field :name,:placeholder => "Your name ..."%></div>
+									</div>
+									<div class="formRow">
+										<div class="textField"><%=f.text_field :email,:placeholder => "Your email ..."%></div>
+									</div>
+									<div class="formRow">
+										<div class="textField"><%=f.text_area :comment,:cols =>"20",:rows => "4",:placeholder => "Your feedback...."%></div>
+									</div>
+									<div class="formRow">
+										<button class="btnSmall btn submit right">
+											<span>Send Message</span>
+										</button>
+									</div>
+								</fieldset>
+							<%end%>
+						</div>
+						<div class="half">
+							<h2>How to find us</h2>
+							<div id="map" style="height:375px;">
+								<div class="imgHolder" ><%=gmaps("markers" => {"data" => @json}, "map_options" => {"processing" => "json", "auto_adjust" => false, "auto_zoom" => false, "zoom" => 16,"center_latitude" => "23.0396", "center_longitude" => "72.566"})%></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<footer id="footer">
+			<div class="center">
+				<span class="copy">Designed by <a href="http://webcodebuilder.com">WebCodeBuilder.com</a></span>
+				Subscribe to our <a href="#">blog</a> and follow us on <a href="https://twitter.com/#!/forchetan01">Twitter</a>
+			</div>
+		</footer>
+	</div>

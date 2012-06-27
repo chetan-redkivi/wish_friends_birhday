@@ -62,6 +62,8 @@
 	<%=flash[:notice]%>
 	<%#=DateTime.now.new_offset(@profile["timezone"]/24)%>
 <%@today_birthday = []%>
+<%@next_month_bday=[]%>
+<%@nxt_result=[]%>
 <!--
 	<table border="1" width="50%" align="center">
 		<tr>
@@ -82,18 +84,22 @@
 					<%if !friend["birthday"].nil?%>
 						<%=birthday = friend["birthday"].split('/')%>
 						<%if @current_date[0] == birthday[0]%>
--->
 							<!--month is same-->
 <!--
+
 								<%if @current_date[1]==birthday[1]%>
--->
 									<!--Date is same-->
 <!--
 										<%@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}%>
 								<%end%>
 								<%if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcomming%>
-									<%@result << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]} %>
+									<%@result << {"name" => friend["name"],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]} %>
 								<%end%>
+						<%elsif birthday[0].to_i == @current_date[0].to_i+1%>
+							<%if birthday[1].to_i >=1 && birthday[1].to_i < (@upcomming-@total_days.to_i) %>
+								<%@nxt_result << {"name" => friend["name"],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]} %>
+							<%end%>
+							<%@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}%>
 						<%end%>
 					<%else%>
 						<%=friend["birthday"]%>
@@ -103,7 +109,14 @@
 		</tr>
 		<%end%>
 	</table>
+
+%>
 -->
+<%@result = @result.sort_by { |hsh| hsh["birthday"]}%>
+<%@nxt_result = @nxt_result.sort_by {|hsh| hsh["birthday"]}%>
+<%@result = @result+@nxt_result%>
+<%@next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }%>
+
 <table border="0" width="100%" align="center">
 	<tr>
 		<td align ="center">
@@ -160,7 +173,7 @@
 	<table border="1" width="100%" align="center">
 		<tr>
 			<td colspan="3" align="center">
-				<h2>This month Upcomming BirthDay</h2>
+				<h2>Recently Upcomming BirthDay</h2>
 			</td>
 		</tr>
 		<%if !@result.blank?%>
@@ -185,7 +198,7 @@
 					<%=friend["name"]%>
 				</td>
 				<td align="center">
-					<%=friend["birthday"]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}"%>
+					<%=friend["birthday"]%>
 				</td>
 			</tr>
 			<%end%>
@@ -210,6 +223,48 @@
 					<%=text_area_tag 'customMsz', '',:placeholder => "Write Your own message...",:size=>"20x10"%></br></br>
 					<%=submit_tag("Click here for post on friends wall",:class => "btnSmall btn submit right",:style=>"margin-right:65%;")%>
 				<%end%>
+
+</br></br></br></br>
+	<table border="1" width="100%" align="center">
+		<tr>
+			<td colspan="3" align="center">
+				<h2>Next Month Upcomming BirthDay</h2>
+			</td>
+		</tr>
+		<%if !@next_month_bday.blank?%>
+		<tr>
+			<th>
+				Image
+			</th>
+			<th>
+				Name
+			</th>
+			<th>
+				BirthDate
+			</th>
+		</tr>
+			<%@next_month_bday.each do |friend|%>
+			<tr>
+				<td width="4">
+					<%=image_tag(@graph.get_picture(friend["id"]))%>
+				</td>
+				<td align="center" width="48%">
+					<%=friend["name"]%>
+				</td>
+				<td align="center">
+					<%=friend["birthday"]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}"%>
+				</td>
+			</tr>
+			<%end%>
+		<%else%>
+			<tr>
+				<td colspan="3" align="center">
+					<strong><p><font color="white">No friends have birthday in this month</font></p></strong>
+				</td>
+			</tr>
+		<%end%>
+
+	</table>
 
 <%end%>
 

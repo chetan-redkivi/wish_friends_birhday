@@ -12,11 +12,12 @@ class HomeController < ApplicationController
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
 			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
-			number_of_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i)).day
-			#render :text => number_of_days.inspect and return false
+			@total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i)).day
+			@nxt_month_total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i+1)).day
 			@today_birthday_ids = []
 			@result = []
-			@upcomming = 31
+			@upcomming = @current_date[1].to_i+10
+			#render :text => @upcomming.inspect and return false
 			@friends_profile.each do |friend|
 				if !friend["birthday"].nil?
 					birthday = friend["birthday"].split('/')
