@@ -229,17 +229,19 @@
 							<li>
 								<div class="row">
 									<blockquote>
-										<q><%=@testinomial.comment%><b><%=@testinomial.name%></b>
+										<q>
 										<%if user_signed_in?%>
 											<br><%=image_tag(@graph.get_picture('100001232423838'))%>
 										<%end%>
+											<%=@testinomial.comment%><b><%=@testinomial.name%></b>
 										 </q>
 									</blockquote>
 									<blockquote>
-										<q><%=Feedback.find(3).comment%><b><%=Feedback.find(3).name%></b>
-										<%if user_signed_in?%>
-											<br><%=image_tag(@graph.get_picture("#{Feedback.find(3).fb_id}"))%>
-										<%end%>
+										<q>
+											<%if user_signed_in?%>
+												<br><%=image_tag(@graph.get_picture("#{Feedback.find(3).fb_id}"))%>
+											<%end%>
+											<%=Feedback.find(3).comment%><b><%=Feedback.find(3).name%></b>
 										 </q>
 									</blockquote>
 								</div>
