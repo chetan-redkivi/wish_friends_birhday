@@ -229,14 +229,14 @@
 							<li>
 								<div class="row">
 									<blockquote>
-										<q><%=@testinomial.comment%><b>Surya Prakash Joshi</b>
+										<q><%=@testinomial.comment%><b><%=@testinomial.name%></b>
 										<%if user_signed_in?%>
 											<br><%=image_tag(@graph.get_picture('100001232423838'))%>
 										<%end%>
 										 </q>
 									</blockquote>
 									<blockquote>
-										<q><%=@testinomial.comment%><b>Surya Prakash Joshi</b>
+										<q><%=Feedback.find(3).comment%><b><%=Feedback.find(3).name%></b>
 										<%if user_signed_in?%>
 											<br><%=image_tag(@graph.get_picture('100001232423838'))%>
 										<%end%>
