@@ -238,7 +238,7 @@
 									<blockquote>
 										<q><%=Feedback.find(3).comment%><b><%=Feedback.find(3).name%></b>
 										<%if user_signed_in?%>
-											<br><%=image_tag(@graph.get_picture('100001232423838'))%>
+											<br><%=image_tag(@graph.get_picture("#{Feedback.find(3).fb_id}"))%>
 										<%end%>
 										 </q>
 									</blockquote>
