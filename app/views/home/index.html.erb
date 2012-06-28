@@ -288,7 +288,7 @@
 										<%if user_signed_in?%>
 											<%=image_tag(@graph.get_picture('100001232423838'))%><br>
 										<%end%>
-											<%=@testinomial.comment%></br><b><%=@testinomial.name%></b>
+											<%=@testinomial.comment%><b><%=@testinomial.name%></b>
 										 </q>
 									</blockquote>
 									<blockquote>
@@ -296,17 +296,7 @@
 											<%if user_signed_in?%>
 												<%=image_tag(@graph.get_picture("#{Feedback.find(3).fb_id}"))%><br>
 											<%end%>
-											<%=Feedback.find(3).comment%></br><b><%=Feedback.find(3).name%></b>
-										 </q>
-									</blockquote>
-								</div>
-								<div class="row">
-									<blockquote>
-										<q>
-										<%if user_signed_in?%>
-											<%=image_tag(@graph.get_picture("#{Feedback.find(4).fb_id}"))%><br>
-										<%end%>
-											<%=Feedback.find(4).comment%></br><b><%=Feedback.find(4).name%></b>
+											<%=Feedback.find(3).comment%><b><%=Feedback.find(3).name%></b>
 										 </q>
 									</blockquote>
 								</div>
