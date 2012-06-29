@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>WishFriendsBirhday</title>
+  <title>WishFriendsBirthday</title>
 	<meta charset="utf-8" />
 	<meta name = "viewport" content = "width=device-width, maximum-scale = 1, minimum-scale=1" />
 	<%=stylesheet_link_tag "default.css"%>
@@ -18,7 +18,7 @@
 	<![endif]-->
   <%= csrf_meta_tag %>
 </head>
-<body>
+<body onload="countdown(year,month,day,hour,minute)">
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];

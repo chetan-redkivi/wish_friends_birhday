@@ -1,0 +1,6 @@
+<%= form_for(@myavatar,:url => {:action => "create"}, :html => { :multipart => true }) do |f| %>
+  <div class="field">
+	<%= f.file_field :avatar %>
+	<%=f.submit("Add avatar")%>
+  </div>
+<% end %>

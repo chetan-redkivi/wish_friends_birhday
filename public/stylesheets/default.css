@@ -785,3 +785,74 @@
 	#content{padding:0;}
 
 }
+.mycls{
+	position:absolute;top:30%%;left:34%;width:580px;background:#383838;border-radius: 8px;text-align:center;color:red;
+}
+/*Jun 29-2012*/
+.numbers {
+
+    padding: 0px;
+
+    text-align: right;
+
+    font-family: Arial;
+
+    font-size: 28px;
+
+    font-weight: bold;   /* options are normal, bold, bolder, lighter */
+
+    font-style: italic;  /* options are normal or italic */
+
+    color: #FFFFFF;      /* change color using the hexadecimal color codes for HTML */
+
+    background: #222222;/* change color using the hexadecimal color codes for HTML */
+
+}
+
+.title {/* the styles below will affect the title next to the numbers, i.e., “Days”, “Hours”, etc. */
+
+    padding-right: 5px;
+
+    margin: 12px 0px 0px 0px;
+
+    text-align: left;
+
+    font-family: Arial;
+
+    font-size: 10px;
+
+    font-weight: bold;    /* options are normal, bold, bolder, lighter */
+
+    font-style: italic;   /* options are normal or italic */
+
+    color: #FFFFFF;       /* change color using the hexadecimal color codes for HTML */
+
+    background: #222222;  /* change color using the hexadecimal color codes for HTML */
+
+}
+
+#countdown {
+
+    display: block;
+
+    width: 400px;
+
+    height: 47px;
+
+    border-style: ridge;    /* options are none, dotted, dashed, solid, double, groove, ridge, inset, outset */
+
+    border-width: 2px;
+
+    border-color: #666666;    /* change color using the hexadecimal color codes for HTML */
+
+    background-color: #222222;    /* change color using the hexadecimal color codes for HTML */
+
+    margin: 0px auto;
+
+    position: relative;    /* leave as "relative" to keep timer centered on your page, or change to "absolute" then change the values of the "top" and "left" properties to position the timer */
+
+    top: 0px;    /* change to position the timer */
+
+    left: 0px;   /* change to position the timer; delete this property and it's value to keep timer centered on page */
+
+}

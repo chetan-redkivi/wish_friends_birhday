@@ -13,6 +13,7 @@ gem 'pg'
 gem 'gmaps4rails'
 gem 'activeadmin'
 gem 'facebook_share'
+gem "paperclip", "~> 3.0"
 # Use unicorn as the web server
 # gem 'unicorn'
 
