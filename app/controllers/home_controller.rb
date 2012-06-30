@@ -55,9 +55,8 @@ class HomeController < ApplicationController
 				@next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }
 			if !params["defaultMsz"].nil?
 				@today_birthday_ids.each do |id|
-#				@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
-				url = Myavatar.find(4).avatar.url
-				@graph.put_picture("#{url}", { "message" => "This is the photo caption" }, id)
+				@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
+#				@graph.put_picture("/home/viinfo/Downloads/facebook.png", { "message" => "This is the photo caption" }, "id")
 
 				end
 				flash[:notice] = ""
