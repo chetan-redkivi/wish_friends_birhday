@@ -56,7 +56,7 @@ class HomeController < ApplicationController
 			if !params["defaultMsz"].nil?
 				@today_birthday_ids.each do |id|
 					url = Myavatar.find(3)
-					@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
+#					@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
 					@graph.put_picture("#{url}", { "message" => "Wishing you a very special Birthday" }, id)
 				end
 				flash[:notice] = ""
