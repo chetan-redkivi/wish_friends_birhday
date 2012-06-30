@@ -18,6 +18,7 @@ class HomeController < ApplicationController
 		#	@graph.put_picture()
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
+			i=0
 			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
 			@total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i)).day
 			@nxt_month_total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i+1)).day
@@ -27,6 +28,7 @@ class HomeController < ApplicationController
 			@next_month_bday=[]
 			@nxt_result=[]
 			@upcomming = @current_date[1].to_i+10
+			#render :text => @friends_profile.inspect and return false
 			@friends_profile.each do |friend|
 				if !friend["birthday"].nil?
 					birthday = friend["birthday"].split('/')
@@ -87,5 +89,7 @@ class HomeController < ApplicationController
 			else
 			end
 	end
+
+
 
 end
