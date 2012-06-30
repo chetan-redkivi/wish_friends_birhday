@@ -1,7 +1,5 @@
 class HomeController < ApplicationController
   def index
-#  	render :text => params.inspect and return false
-
 		@feedback = Feedback.new
 		@feedbacks = Feedback.find(:all)
 		@testinomial = Feedback.find(1)
@@ -10,9 +8,9 @@ class HomeController < ApplicationController
 		if !session[:access_token].nil?
 
 			@graph = Koala::Facebook::API.new(session[:access_token])
-
+			@myavatars = Myavatar.find(:all)
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
-
+		#	render :text => @friends_profile.inspect and return false
 			@profile = @graph.get_object("me")
 
 		#	@graph.put_picture()
@@ -37,16 +35,26 @@ class HomeController < ApplicationController
 						if @current_date[1]==birthday[1]
 							#Date is same
 							@today_birthday_ids << friend["id"]
-							@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
+							fb_friend_profile = @graph.get_object("#{friend["id"]}")
+							fb_friend_profile_url = fb_friend_profile["link"]
+							@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"],"profile_url" => fb_friend_profile_url}
 						end
 						if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcomming
-							@result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]}
+							fb_friend_profile = @graph.get_object("#{friend["id"]}")
+							fb_friend_profile_url = fb_friend_profile["link"]
+
+							@result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"profile_url" => fb_friend_profile_url}
 						end
 						elsif birthday[0].to_i == @current_date[0].to_i+1
 							if birthday[1].to_i >=1 && birthday[1].to_i < (@upcomming-@total_days.to_i)
-								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]}
+							fb_friend_profile = @graph.get_object("#{friend["id"]}")
+							fb_friend_profile_url = fb_friend_profile["link"]
+
+								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"profile_url" => fb_friend_profile_url}
 							end
-							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
+							fb_friend_profile = @graph.get_object("#{friend["id"]}")
+							fb_friend_profile_url = fb_friend_profile["link"]
+							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"],"profile_url" => fb_friend_profile_url}
 						end
 					end
 				end
@@ -56,8 +64,11 @@ class HomeController < ApplicationController
 				@next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }
 			if !params["defaultMsz"].nil?
 				@today_birthday_ids.each do |id|
-					@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
-#				@graph.put_picture("/home/viinfo/Downloads/facebook.png", { "message" => "This is the photo caption" }, "id")
+#					@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
+					d = (1..8).sample
+					url = Myavatar.find(d).avatar.url
+#					@graph.put_picture("#{url}", { "message" => "Wishing you a very special Birthday" },id)
+					@graph.put_picture("#{url}", { "message" => "Wishing you a very special Birthday" }, id)
 
 				end
 				flash[:notice] = ""
@@ -89,7 +100,6 @@ class HomeController < ApplicationController
 			else
 			end
 	end
-
 
 
 end

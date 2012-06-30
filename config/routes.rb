@@ -9,7 +9,7 @@ WishFriendsBirhday::Application.routes.draw do
 	match "/feed" => "home#facefeed"
 	match "/defaultMsz" => "home#defaultMsz"
 	match "/addFeedback" => "home#addFeedback"
-
+	resources :myavatars
 	devise_scope :user do
 		match 'users/sign_out' => 'devise/sessions#destroy'
 	end

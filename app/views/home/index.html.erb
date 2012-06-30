@@ -152,7 +152,7 @@
 						<%@today_birthday.each do |friend|%>
 						<tr>
 							<td width="4">
-								<%=image_tag(@graph.get_picture(friend["id"]))%>
+								<%=link_to image_tag(@graph.get_picture(friend["id"])),"#{friend["profile_url"]}"%>
 							</td>
 							<td align="center" width="48%">
 								<%=friend["name"]%>
@@ -228,7 +228,7 @@
 						<%@result.each do |friend|%>
 						<tr>
 							<td width="4">
-								<%=image_tag(@graph.get_picture(friend["id"]))%>
+								<%=link_to image_tag(@graph.get_picture(friend["id"])),"#{friend["profile_url"]}"%>
 							</td>
 							<td align="center" width="48%">
 								<%=friend["name"]%>
@@ -284,7 +284,7 @@
 									<%@next_month_bday.each do |friend|%>
 									<tr>
 										<td width="4">
-											<%=image_tag(@graph.get_picture(friend["id"]))%>
+											<%=link_to image_tag(@graph.get_picture(friend["id"])),"#{friend["profile_url"]}"%>
 										</td>
 										<td align="center" width="48%">
 											<%=friend["name"]%>
@@ -335,6 +335,25 @@
 										 </q>
 									</blockquote>
 								</div>
+								<div class="row">
+									<blockquote>
+										<q>
+										<%if user_signed_in?%>
+											<%=image_tag(@graph.get_picture("100000135918048"))%><br>
+										<%end%>
+											<%=Feedback.find(4).comment%><b><%=Feedback.find(4).name%></b>
+										 </q>
+									</blockquote>
+									<blockquote>
+										<q>
+											<%if user_signed_in?%>
+												<%=image_tag(@graph.get_picture("100001220465220"))%><br>
+											<%end%>
+											<%=Feedback.find(5).comment%><b><%=Feedback.find(5).name%></b>
+										 </q>
+									</blockquote>
+								</div>
+
 							</li>
 						</ul>
 					</div>
@@ -347,22 +366,6 @@
 					<div class="columns">
 						<div class="half">
 							<%=form_for @feedback,:url => {:action => "addFeedback"},:html => {:class=>"form"} do |f|%>
-<!--
-								<% if @feedback.errors.any? %>
-									<div class="mycls">
-									<div id="error_explanation">
-										<h2 style="text-align:center;"><%= pluralize(@feedback.errors.count, "error") %> prohibited this Feedback from being saved.... :(</h2>
-
-										<ul>
-										<% @feedback.errors.full_messages.each do |msg| %>
-											<li><%= msg %></li>
-										<% end %>
-
-										</ul>
-									</div>
-									</div>
-								<% end %>
--->
 								<fieldset>
 									<h2>Feedback form</h2>
 									<div class="formRow">
