@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   def index
+#  	render :text => params.inspect and return false
+
 		@feedback = Feedback.new
 		@feedbacks = Feedback.find(:all)
 		@testinomial = Feedback.find(1)
@@ -8,9 +10,9 @@ class HomeController < ApplicationController
 		if !session[:access_token].nil?
 
 			@graph = Koala::Facebook::API.new(session[:access_token])
-			@myavatars = Myavatar.find(:all)
+
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
-		#	render :text => @friends_profile.inspect and return false
+
 			@profile = @graph.get_object("me")
 
 		#	@graph.put_picture()
@@ -62,13 +64,11 @@ class HomeController < ApplicationController
 				@nxt_result = @nxt_result.sort_by {|hsh| hsh["birthday"]}
 				@result = @result+@nxt_result
 				@next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }
+
 			if !params["defaultMsz"].nil?
 				@today_birthday_ids.each do |id|
 					@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
-#					d = (1..8).sample
-#					url = Myavatar.find(d).avatar.url
-#					@graph.put_picture("#{url}", { "message" => "Wishing you a very special Birthday" },id)
-#					@graph.put_picture("#{url}", { "message" => "Wishing you a very special Birthday" }, id)
+#				@graph.put_picture("/home/viinfo/Downloads/facebook.png", { "message" => "This is the photo caption" }, "id")
 
 				end
 				flash[:notice] = ""
