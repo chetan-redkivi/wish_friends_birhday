@@ -13,6 +13,7 @@
 						<li><a href="#contactUs"><span>contact us</span></a></li>
 						<% if user_signed_in? -%>
 							<li><%=link_to "Logout","users/sign_out"%></li>
+							<li><font color="black"><%=DateTime.now.new_offset(@profile["timezone"]/24)%></font></li>
 						<%end%>
 					</ul>
 				</nav>
@@ -33,7 +34,8 @@
 								&nbsp;
 							</td>
 							<td valign="top">
-									<p>Hey..Friends....My self Chetan..... :) , I m lazy about birthday wishing :)), so i thought if there are more than 2-3 or more facebook friends birthday Today i have ,and i want to wish them, then i have to go to their wall :( ....means i have to open each profile.. :( so i thought why i should not create an app so that every one not only can get their facebook friends birthday information but also wish all of them with just a click. Now Apps is Here for you...  use and enjoy :)</p>
+									<p>
+									Hey..Friends....My self Chetan..... :) , I m lazy about birthday wishing :)), so i thought if there are more than 2-3 or more facebook friends birthday Today i have ,and i want to wish them, then i have to go to their wall :( ....means i have to open each profile.. :( so i thought why i should not create an app so that every one not only can get their facebook friends birthday information but also wish all of them with just a click. Now Apps is Here for you...  use and enjoy :)</p>
 									<p>
 										One More importent thing if you have any suggestions/ideas for improving this apps you are most welcome :)) please inform me through feedback...
 

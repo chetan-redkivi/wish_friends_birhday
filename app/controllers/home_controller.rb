@@ -27,7 +27,6 @@ class HomeController < ApplicationController
 			@next_month_bday=[]
 			@nxt_result=[]
 			@upcomming = @current_date[1].to_i+10
-			#render :text => @upcomming.inspect and return false
 			@friends_profile.each do |friend|
 				if !friend["birthday"].nil?
 					birthday = friend["birthday"].split('/')
