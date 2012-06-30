@@ -1,14 +1,20 @@
 class HomeController < ApplicationController
   def index
 #  	render :text => params.inspect and return false
+
 		@feedback = Feedback.new
 		@feedbacks = Feedback.find(:all)
 		@testinomial = Feedback.find(1)
 		@json = Location.all.to_gmaps4rails
+
 		if !session[:access_token].nil?
+
 			@graph = Koala::Facebook::API.new(session[:access_token])
+
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
+
 			@profile = @graph.get_object("me")
+
 		#	@graph.put_picture()
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
@@ -21,7 +27,7 @@ class HomeController < ApplicationController
 			@next_month_bday=[]
 			@nxt_result=[]
 			@upcomming = @current_date[1].to_i+10
-			#render :text => @upcomming.inspect and return false
+			#render :text => @friends_profile.inspect and return false
 			@friends_profile.each do |friend|
 				if !friend["birthday"].nil?
 					birthday = friend["birthday"].split('/')
@@ -33,11 +39,11 @@ class HomeController < ApplicationController
 							@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
 						end
 						if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcomming
-							@result << {"name" => friend["name"],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]}
+							@result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]}
 						end
 						elsif birthday[0].to_i == @current_date[0].to_i+1
 							if birthday[1].to_i >=1 && birthday[1].to_i < (@upcomming-@total_days.to_i)
-								@nxt_result << {"name" => friend["name"],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]}
+								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]}
 							end
 							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
 						end
@@ -49,9 +55,9 @@ class HomeController < ApplicationController
 				@next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }
 			if !params["defaultMsz"].nil?
 				@today_birthday_ids.each do |id|
+					url = Myavatar.find((1..8).to_a.sample)
 					@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
-#				@graph.put_picture("/home/viinfo/Downloads/facebook.png", { "message" => "This is the photo caption" }, "id")
-
+					@graph.put_picture("#{url}", { "message" => "Wishing you a very special Birthday" }, id)
 				end
 				flash[:notice] = ""
 			end
@@ -81,6 +87,10 @@ class HomeController < ApplicationController
 				redirect_to "/"
 			else
 			end
+	end
+
+	def testtime
+		Date
 	end
 
 end
