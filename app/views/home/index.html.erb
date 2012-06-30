@@ -152,7 +152,7 @@
 						<%@today_birthday.each do |friend|%>
 						<tr>
 							<td width="4">
-								<%=link_to image_tag(@graph.get_picture(friend["id"])),"#{friend["profile_url"]}"%>
+								<%=image_tag(@graph.get_picture(friend["id"]))%>
 							</td>
 							<td align="center" width="48%">
 								<%=friend["name"]%>
@@ -228,7 +228,7 @@
 						<%@result.each do |friend|%>
 						<tr>
 							<td width="4">
-								<%=link_to image_tag(@graph.get_picture(friend["id"])),"#{friend["profile_url"]}"%>
+								<%=image_tag(@graph.get_picture(friend["id"]))%>
 							</td>
 							<td align="center" width="48%">
 								<%=friend["name"]%>
@@ -284,7 +284,7 @@
 									<%@next_month_bday.each do |friend|%>
 									<tr>
 										<td width="4">
-											<%=link_to image_tag(@graph.get_picture(friend["id"])),"#{friend["profile_url"]}"%>
+											<%=image_tag(@graph.get_picture(friend["id"]))%>
 										</td>
 										<td align="center" width="48%">
 											<%=friend["name"]%>

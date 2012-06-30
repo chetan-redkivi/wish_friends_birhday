@@ -18,7 +18,6 @@ class HomeController < ApplicationController
 		#	@graph.put_picture()
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
-			i=0
 			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
 			@total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i)).day
 			@nxt_month_total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i+1)).day
@@ -37,26 +36,16 @@ class HomeController < ApplicationController
 						if @current_date[1]==birthday[1]
 							#Date is same
 							@today_birthday_ids << friend["id"]
-							fb_friend_profile = @graph.get_object("#{friend["id"]}")
-							fb_friend_profile_url = fb_friend_profile["link"]
-							@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"],"profile_url" => fb_friend_profile_url}
+							@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
 						end
 						if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcomming
-							fb_friend_profile = @graph.get_object("#{friend["id"]}")
-							fb_friend_profile_url = fb_friend_profile["link"]
-
-							@result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"profile_url" => fb_friend_profile_url}
+							@result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]}
 						end
 						elsif birthday[0].to_i == @current_date[0].to_i+1
 							if birthday[1].to_i >=1 && birthday[1].to_i < (@upcomming-@total_days.to_i)
-							fb_friend_profile = @graph.get_object("#{friend["id"]}")
-							fb_friend_profile_url = fb_friend_profile["link"]
-
-								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"profile_url" => fb_friend_profile_url}
+								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"]}
 							end
-							fb_friend_profile = @graph.get_object("#{friend["id"]}")
-							fb_friend_profile_url = fb_friend_profile["link"]
-							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"],"profile_url" => fb_friend_profile_url}
+							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
 						end
 					end
 				end
@@ -64,7 +53,6 @@ class HomeController < ApplicationController
 				@nxt_result = @nxt_result.sort_by {|hsh| hsh["birthday"]}
 				@result = @result+@nxt_result
 				@next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }
-
 			if !params["defaultMsz"].nil?
 				@today_birthday_ids.each do |id|
 					@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
@@ -101,5 +89,8 @@ class HomeController < ApplicationController
 			end
 	end
 
+	def testtime
+		Date
+	end
 
 end
