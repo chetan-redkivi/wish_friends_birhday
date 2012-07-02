@@ -56,6 +56,7 @@ class HomeController < ApplicationController
 			if !params["defaultMsz"].nil?
 				@today_birthday_ids.each do |id|
 #				@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
+				pic = Myavatar.find((1..8).to_a.sample).avatar.url
 				@graph.put_picture("#{Rails.root/pic}", { "message" => "Wishing you a very special Birthday" }, id)
 
 #				@graph.put_picture("/home/viinfo/Downloads/facebook.png", { "message" => "This is the photo caption" }, "id")
