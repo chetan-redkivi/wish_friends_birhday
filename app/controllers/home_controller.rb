@@ -45,12 +45,12 @@ class HomeController < ApplicationController
 							@result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"link" => fb_profile_link}
 						end
 						elsif birthday[0].to_i == @current_date[0].to_i+1
-							fb_friend_profile = @graph.get_object(friend["id"])
-							fb_profile_link = fb_friend_profile["link"]
 							if birthday[1].to_i >=1 && birthday[1].to_i < (@upcomming-@total_days.to_i)
+								fb_friend_profile = @graph.get_object(friend["id"])
+								fb_profile_link = fb_friend_profile["link"]
 								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"link" => fb_profile_link}
 							end
-							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"],"link" => fb_profile_link}
+							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
 						end
 					end
 				end
@@ -63,8 +63,8 @@ class HomeController < ApplicationController
 
 
 	def defaultMsz
+		@graph = Koala::Facebook::API.new(session[:access_token])
 		if !$today_birthday_ids.blank?
-			@graph = Koala::Facebook::API.new(session[:access_token])
 			$today_birthday_ids.each do |id|
  			  image_link = BirthdayImage.find((1..5).to_a.sample).avatar.url
 				n_val = []
@@ -81,8 +81,6 @@ class HomeController < ApplicationController
 					end
 				end
 				image_link =  n_val.join('')
-#				@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
-#				render :text => (Rails.root).join("public/"+image_link).inspect and return false
 				@graph.put_picture("#{(Rails.root).join("public/"+image_link)}", { "message" => "Wishing you a very special Birthday :))" }, id)
 			end
 			flash[:notice] = ""
