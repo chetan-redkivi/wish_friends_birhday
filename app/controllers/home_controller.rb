@@ -83,7 +83,7 @@ class HomeController < ApplicationController
 				image_link =  n_val.join('')
 #				@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
 #				render :text => (Rails.root).join("public/"+image_link).inspect and return false
-				@graph.put_picture("#{(Rails.root).join("public/"+image_link)}", { "message" => "Wishing you a very special Birthday" }, id)
+				@graph.put_picture("#{(Rails.root).join("public/"+image_link)}", { "message" => "Wishing you a very special Birthday :))" }, id)
 			end
 			flash[:notice] = ""
 		end
@@ -115,6 +115,7 @@ class HomeController < ApplicationController
 		else
 			flash[:notice] = "Please Enter Your Quote it Should not Be blank :)"
 		end
+		redirect_to "/"
 	end
 
 
