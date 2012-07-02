@@ -152,7 +152,7 @@
 						<%@today_birthday.each do |friend|%>
 						<tr>
 							<td width="4">
-								<%=image_tag(@graph.get_picture(friend["id"]))%>
+								<%=link_to image_tag(@graph.get_picture(friend["id"])),friend["link"]%>
 							</td>
 							<td align="center" width="48%">
 								<%=friend["name"]%>
@@ -173,7 +173,7 @@
 						<tr>
 							<td colspan="3" align="center">
 								<h3>Next First Birthday will come after....</h3>
-								<%=@value%>
+								<%#=@value%>
 								<strong><p>
 									<div id="countdown" >
 										<table cellspacing="4" cellpadding="0" border="0" align="center">
@@ -228,7 +228,7 @@
 						<%@result.each do |friend|%>
 						<tr>
 							<td width="4">
-								<%=image_tag(@graph.get_picture(friend["id"]))%>
+								<%=link_to image_tag(@graph.get_picture(friend["id"])),friend["link"]%>
 							</td>
 							<td align="center" width="48%">
 								<%=friend["name"]%>
@@ -284,7 +284,7 @@
 									<%@next_month_bday.each do |friend|%>
 									<tr>
 										<td width="4">
-											<%=image_tag(@graph.get_picture(friend["id"]))%>
+											<%=link_to image_tag(@graph.get_picture(friend["id"])),friend["link"]%>
 										</td>
 										<td align="center" width="48%">
 											<%=friend["name"]%>
