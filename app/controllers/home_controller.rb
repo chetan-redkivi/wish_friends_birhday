@@ -63,8 +63,8 @@ class HomeController < ApplicationController
 
 
 	def defaultMsz
-		@graph = Koala::Facebook::API.new(session[:access_token])
 		if !$today_birthday_ids.blank?
+			@graph = Koala::Facebook::API.new(session[:access_token])
 			$today_birthday_ids.each do |id|
  			  image_link = BirthdayImage.find((1..5).to_a.sample).avatar.url
 				n_val = []
@@ -91,6 +91,7 @@ class HomeController < ApplicationController
 	def customMsz
 		if !params["customMsz"].blank?
 			if !$today_birthday_ids.blank?
+				@graph = Koala::Facebook::API.new(session[:access_token])
 				$today_birthday_ids.each do |id|
 					image_link = BirthdayImage.find((1..5).to_a.sample).avatar.url
 					n_val = []
