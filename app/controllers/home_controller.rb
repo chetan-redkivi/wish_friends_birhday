@@ -50,7 +50,7 @@ class HomeController < ApplicationController
 							if birthday[1].to_i >=1 && birthday[1].to_i < (@upcomming-@total_days.to_i)
 								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"link" => fb_profile_link}
 							end
-							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
+							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"],"link" => fb_profile_link}
 						end
 					end
 				end
