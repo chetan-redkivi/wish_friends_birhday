@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+
+
   def index
 #  	render :text => params.inspect and return false
 
@@ -21,7 +23,7 @@ class HomeController < ApplicationController
 			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
 			@total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i)).day
 			@nxt_month_total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i+1)).day
-			@today_birthday_ids = []
+			$today_birthday_ids = []
 			@result = []
 			@today_birthday = []
 			@next_month_bday=[]
@@ -35,7 +37,7 @@ class HomeController < ApplicationController
 						#month is same
 						if @current_date[1]==birthday[1]
 							#Date is same
-							@today_birthday_ids << friend["id"]
+							$today_birthday_ids << friend["id"]
 							@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
 						end
 						if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcomming
@@ -53,17 +55,6 @@ class HomeController < ApplicationController
 				@nxt_result = @nxt_result.sort_by {|hsh| hsh["birthday"]}
 				@result = @result+@nxt_result
 				@next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }
-			if !params["defaultMsz"].nil?
-				@today_birthday_ids.each do |id|
-#				@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
-				pic = Myavatar.find((1..8).to_a.sample).avatar.url
-				@graph.put_picture("#{Rails.root/pic}", { "message" => "Wishing you a very special Birthday" }, id)
-
-#				@graph.put_picture("/home/viinfo/Downloads/facebook.png", { "message" => "This is the photo caption" }, "id")
-
-				end
-				flash[:notice] = ""
-			end
 			if !params["customMsz"].nil?
 				if !params["customMsz"].blank?
 					@today_birthday_ids.each do |id|
@@ -74,6 +65,22 @@ class HomeController < ApplicationController
 				end
 			end
 	  end
+	end
+
+	def defaultMsz
+			@graph = Koala::Facebook::API.new(session[:access_token])
+			if !params["defaultMsz"].nil?
+				$today_birthday_ids.each do |id|
+#				@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
+				pic = Myavatar.find((1..8).to_a.sample).avatar.url
+				@graph.put_picture("#{Rails.root/pic}", { "message" => "Wishing you a very special Birthday" }, id)
+
+#				@graph.put_picture("/home/viinfo/Downloads/facebook.png", { "message" => "This is the photo caption" }, "id")
+				redirect_to "/"
+				end
+				flash[:notice] = ""
+			end
+
 	end
 
 	def facefeed
