@@ -74,7 +74,7 @@ class HomeController < ApplicationController
 				end
 
 			end
-			redirect_to "index"
+			redirect_to "/"
 	  end
 	end
 
