@@ -7,7 +7,7 @@ WishFriendsBirhday::Application.routes.draw do
 
   get "home/index"
 	match "/feed" => "home#facefeed"
-	match "/defaultMsz" => "home#defaultMsz"
+	match "/defaultMsz" => "home#index"
 	match "/addFeedback" => "home#addFeedback"
 #	resources :myavatars
 	devise_scope :user do
