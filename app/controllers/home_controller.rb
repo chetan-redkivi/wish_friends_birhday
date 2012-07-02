@@ -52,15 +52,6 @@ class HomeController < ApplicationController
 				@nxt_result = @nxt_result.sort_by {|hsh| hsh["birthday"]}
 				@result = @result+@nxt_result
 				@next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }
-				if !params["customMsz"].nil?
-					if !params["customMsz"].blank?
-						@today_birthday_ids.each do |id|
-							@graph.put_wall_post("#{params["customMsz"]}", {}, id)
-						end
-					else
-						flash[:notice] = "Please Enter Your Quote it Should not Be blank :)"
-					end
-				end
 	  end
 	end
 
@@ -91,6 +82,33 @@ class HomeController < ApplicationController
 			flash[:notice] = ""
 		end
 		redirect_to "/"
+	end
+
+	def customMsz
+		if !params["customMsz"].blank?
+			if !$today_birthday_ids.blank?
+				$today_birthday_ids.each do |id|
+					image_link = BirthdayImage.find((1..5).to_a.sample).avatar.url
+					n_val = []
+					count = 0
+					image_link.each_char do |c|
+						if c=='?'
+							break
+						else
+							if count==1
+								n_val<< c
+							else
+								count = 1
+							end
+						end
+					end
+					image_link =  n_val.join('')
+					@graph.put_picture("#{(Rails.root).join("public/"+image_link)}", { "message" => "#{params["customMsz"]}" }, id)
+				end
+			end
+		else
+			flash[:notice] = "Please Enter Your Quote it Should not Be blank :)"
+		end
 	end
 
 
