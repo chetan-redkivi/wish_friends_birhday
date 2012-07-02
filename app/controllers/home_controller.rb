@@ -69,6 +69,7 @@ class HomeController < ApplicationController
 
 	def defaultMsz
 		if !$today_birthday_ids.blank?
+			@graph = Koala::Facebook::API.new(session[:access_token])
 			$today_birthday_ids.each do |id|
 				@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
 				image_link = Myavatar.find((1..8).to_a.sample).avatar.url
