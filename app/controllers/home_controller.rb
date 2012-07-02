@@ -1,14 +1,12 @@
 class HomeController < ApplicationController
   def index
-#  	render :text =>  (Rails.root).join("#{Myavatar.find([1,6,11,15,19].sample).avatar.url}").inspect and return false
-
 		@feedback = Feedback.new
 		@feedbacks = Feedback.find(:all)
 		@testinomial = Feedback.find(1)
 		@json = Location.all.to_gmaps4rails
 
-		if !session[:access_token].nil?
 
+		if !session[:access_token].nil?
 			$today_birthday_ids = []
 			@result = []
 			@today_birthday = []
@@ -71,9 +69,24 @@ class HomeController < ApplicationController
 		if !$today_birthday_ids.blank?
 			@graph = Koala::Facebook::API.new(session[:access_token])
 			$today_birthday_ids.each do |id|
-				@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
-				image_link = Myavatar.find((1..8).to_a.sample).avatar.url
-				@graph.put_picture("#{(Rails.root).join(image_link)}", { "message" => "Wishing you a very special Birthday" }, id)
+ 			  image_link = Myavatar.find((1..8).to_a.sample).avatar.url
+				n_val = []
+				count = 0
+				image_link.each_char do |c|
+					if c=='?'
+						break
+					else
+						if count==1
+							n_val<< c
+						else
+							count = 1
+						end
+					end
+				end
+				image_link =  n_val.join('')
+#				@graph.put_wall_post("Wishing you a very special Birthday", {}, id)
+#				render :text => (Rails.root).join("public/"+image_link).inspect and return false
+				@graph.put_picture("#{(Rails.root).join("public/"+image_link)}", { "message" => "Wishing you a very special Birthday" }, id)
 			end
 			flash[:notice] = ""
 		end
