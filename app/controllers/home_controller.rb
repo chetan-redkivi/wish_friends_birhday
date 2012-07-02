@@ -72,9 +72,7 @@ class HomeController < ApplicationController
 				else
 					flash[:notice] = "Please Enter Your Quote it Should not Be blank :)"
 				end
-
 			end
-			redirect_to "/"
 	  end
 	end
 
