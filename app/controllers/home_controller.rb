@@ -69,7 +69,7 @@ class HomeController < ApplicationController
 		if !$today_birthday_ids.blank?
 			@graph = Koala::Facebook::API.new(session[:access_token])
 			$today_birthday_ids.each do |id|
- 			  image_link = Myavatar.find((1..8).to_a.sample).avatar.url
+ 			  image_link = BirthdayImage.find((1..8).to_a.sample).avatar.url
 				n_val = []
 				count = 0
 				image_link.each_char do |c|
