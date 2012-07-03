@@ -5,8 +5,8 @@
 
 //});
  window.onload = codeAddress;
+ window.onload = countdown(year,month,day,hour,minute)
  function codeAddress() {
-			alert((new Date()).getTimezoneOffset());
 			$.ajax({
 				type: 'GET',
 				url: '/home/timezone',
