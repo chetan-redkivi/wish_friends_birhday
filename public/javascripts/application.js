@@ -5,13 +5,13 @@
 
 //});
  window.onload = codeAddress;
-// window.onload = countdown(year,month,day,hour,minute)
+ window.onload =
  function codeAddress() {
 			$.ajax({
 				type: 'GET',
 				url: '/home/timezone',
 				data: 'offset_val='+(new Date()).getTimezoneOffset(),
-				success: function(msg) {
+				success: function(countdown(year,month,day,hour,minute)) {
 				}
 			});
 			 return false;
