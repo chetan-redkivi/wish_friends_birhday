@@ -10,7 +10,7 @@ WishFriendsBirhday::Application.routes.draw do
 	match "/defaultMsz" => "home#defaultMsz"
 	match "/customMsz" => "home#customMsz"
 	match "/addFeedback" => "home#addFeedback"
-	#match "/" => "home#ajax_offset"
+	match "/" => "home#ajax_offset"
 #	resources :myavatars
 	devise_scope :user do
 		match 'users/sign_out' => 'devise/sessions#destroy'
