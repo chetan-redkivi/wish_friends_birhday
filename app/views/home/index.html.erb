@@ -61,7 +61,10 @@
 							<%if user_signed_in?%>
 						<div>
 							<script type="text/javascript">
+
+
 								var current="Birthday Comming..on !"    //-->enter what you want the script to display when the target date and time are reached, limit to 20 characters
+
 								var year=<%=Date.today.strftime("%Y").to_i%>;    //-->Enter the count down target date YEAR
 								var month=<%=@result[0]["birthMonth"].to_i%>;      //-->Enter the count down target date MONTH
 								var day=<%=@result[0]["birthDate"].to_i%>;       //-->Enter the count down target date DAY

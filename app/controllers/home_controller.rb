@@ -133,8 +133,8 @@ class HomeController < ApplicationController
 			end
 	end
 
-	def testtime
-		Date
+	def ajax_offset
+		render :text =>params.inspect and return false
 	end
 
 end

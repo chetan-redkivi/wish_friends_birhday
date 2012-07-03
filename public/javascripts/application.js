@@ -4,3 +4,19 @@
 //  $('#deletesuccess').fadeOut(1000);
 
 //});
+
+$(document).ready( function() {
+	$(window).load(function() {
+			var date = new Date();
+			var offset = date.getTimezoneOffset();
+			$.ajax({
+				type: 'GET',
+				url: '/home/timezone',
+				data: 'offset_val='+offset,
+				success: function(msg) {
+				}
+			});
+			 return false;
+
+	});
+});
