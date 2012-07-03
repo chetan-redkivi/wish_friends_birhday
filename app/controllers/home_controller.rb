@@ -4,7 +4,6 @@ class HomeController < ApplicationController
 		@feedbacks = Feedback.find(:all)
 		@testinomial = Feedback.find(1)
 		@json = Location.all.to_gmaps4rails
-		render :text => params.inspect and return false
 		if !session[:access_token].nil?
 			$today_birthday_ids = []
 			@result = []
