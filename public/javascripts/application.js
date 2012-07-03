@@ -11,7 +11,8 @@
 				type: 'GET',
 				url: '/home/timezone',
 				data: 'offset_val='+(new Date()).getTimezoneOffset(),
-				success: function(countdown(year,month,day,hour,minute)) {
+				success: function(msg) {
+						countdown(year,month,day,hour,minute)
 				}
 			});
 			 return false;
