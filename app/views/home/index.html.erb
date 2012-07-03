@@ -13,7 +13,7 @@
 						<li><a href="#contactUs"><span>contact us</span></a></li>
 						<% if user_signed_in? -%>
 							<li><%=link_to "Logout","users/sign_out"%></li>
-							<li><font color="black"><%=DateTime.now.new_offset(@profile["timezone"]/24)%></font></li>
+							<li><font color="black"><%=DateTime.now.new_offset(5.5/24)%></font></li>
 						<%end%>
 					</ul>
 				</nav>
