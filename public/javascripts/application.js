@@ -4,17 +4,15 @@
 //  $('#deletesuccess').fadeOut(1000);
 
 //});
-
-//$(document).ready( function() {
-//	$(window).load(function() {
-//			$.ajax({
-//				type: 'GET',
-//				url: '/',
-//				data: 'offset_val='+(new Date()).getTimezoneOffset(),
-//				success: function(msg) {
-//				}
-//			});
-//			 return false;
-
-//	});
-//});
+ window.onload = codeAddress;
+ function codeAddress() {
+			alert((new Date()).getTimezoneOffset());
+			$.ajax({
+				type: 'GET',
+				url: '/home/timezone',
+				data: 'offset_val='+(new Date()).getTimezoneOffset(),
+				success: function(msg) {
+				}
+			});
+			 return false;
+}

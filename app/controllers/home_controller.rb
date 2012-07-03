@@ -132,5 +132,10 @@ class HomeController < ApplicationController
 			end
 	end
 
+	def timezone
+		$offset_val = params["offset_val"]
+		redirect_to "/"
+	end
+
 
 end
