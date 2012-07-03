@@ -18,10 +18,12 @@ class HomeController < ApplicationController
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
 
 			@profile = @graph.get_object("me")
-
+			render :text => @profile.inspect and return false
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
-			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
+#			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
+			@current_date = DateTime.now.new_offset(5.5/24).strftime('%m-%d-%Y').split('-')
+
 			@total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i)).day
 			@nxt_month_total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i+1)).day
 			@upcomming = @current_date[1].to_i+10
