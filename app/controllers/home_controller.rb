@@ -1,5 +1,10 @@
 class HomeController < ApplicationController
   def index
+		if request.xhr?
+			$offset_val = params["offset_val"]
+			render :text =>$offset_val.inspect and return false
+		end
+
 		@feedback = Feedback.new
 		@feedbacks = Feedback.find(:all)
 		@testinomial = Feedback.find(1)
@@ -10,11 +15,8 @@ class HomeController < ApplicationController
 			@today_birthday = []
 			@next_month_bday=[]
 			@nxt_result=[]
-
 			@graph = Koala::Facebook::API.new(session[:access_token])
-
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
-
 			@profile = @graph.get_object("me")
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
