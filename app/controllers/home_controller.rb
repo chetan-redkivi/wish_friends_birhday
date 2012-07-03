@@ -134,7 +134,6 @@ class HomeController < ApplicationController
 	end
 
 	def ajax_offset
-		render :text =>params.inspect and return false
 	end
 
 end

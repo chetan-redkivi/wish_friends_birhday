@@ -11,7 +11,7 @@ $(document).ready( function() {
 			var offset = date.getTimezoneOffset();
 			$.ajax({
 				type: 'GET',
-				url: '/home/timezone',
+				url: '/',
 				data: 'offset_val='+offset,
 				success: function(msg) {
 				}
