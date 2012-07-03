@@ -5,16 +5,16 @@
 
 //});
 
-$(document).ready( function() {
-	$(window).load(function() {
-			$.ajax({
-				type: 'GET',
-				url: '/',
-				data: 'offset_val='+(new Date()).getTimezoneOffset(),
-				success: function(msg) {
-				}
-			});
-			 return false;
+//$(document).ready( function() {
+//	$(window).load(function() {
+//			$.ajax({
+//				type: 'GET',
+//				url: '/',
+//				data: 'offset_val='+(new Date()).getTimezoneOffset(),
+//				success: function(msg) {
+//				}
+//			});
+//			 return false;
 
-	});
-});
+//	});
+//});
