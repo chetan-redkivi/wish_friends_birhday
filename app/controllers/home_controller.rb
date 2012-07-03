@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   def index
-		render :text => $offset_val.inspect and return false
 		@feedback = Feedback.new
 		@feedbacks = Feedback.find(:all)
 		@testinomial = Feedback.find(1)
