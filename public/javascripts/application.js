@@ -5,7 +5,7 @@
 
 //});
  window.onload = codeAddress;
- window.onload = countdown(year,month,day,hour,minute)
+// window.onload = countdown(year,month,day,hour,minute)
  function codeAddress() {
 			$.ajax({
 				type: 'GET',
