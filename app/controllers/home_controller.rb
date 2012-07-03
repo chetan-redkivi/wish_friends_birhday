@@ -18,7 +18,6 @@ class HomeController < ApplicationController
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
 
 			@profile = @graph.get_object("me")
-			render :text => @profile.inspect and return false
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
 #			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
