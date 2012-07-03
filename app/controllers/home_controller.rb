@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
   def index
 		if request.xhr?
-			render :text => (DateTime.now.new_offset(((params["offset_val"].to_i/60)*(-1))/24)).inspect and return false
+			render :text => (params["offset_val"].to_i/60)*(-1)).inspect and return false
+			#render :text => (DateTime.now.new_offset(((params["offset_val"].to_i/60)*(-1))/24)).inspect and return false
 
 		end
 
