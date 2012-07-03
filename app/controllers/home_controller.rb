@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
 		if request.xhr?
 			$offset_val = params["offset_val"]
-			render :text =>$offset_val.inspect and return false
+			render :text => "Chetan".inspect and return false
 		end
 
 		@feedback = Feedback.new
