@@ -9,14 +9,7 @@ $(document).ready( function() {
 	$(window).load(function() {
 			var date = new Date();
 			var offset = date.getTimezoneOffset();
-			$.ajax({
-				type: 'GET',
-				url: '/',
-				data: 'offset_val='+offset,
-				success: function(msg) {
-				}
-			});
-			 return false;
+			alert(offset);
 
 	});
 });
