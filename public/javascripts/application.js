@@ -8,7 +8,7 @@
  function codeAddress() {
 			$.ajax({
 				type: 'GET',
-				url: '/home/timezone',
+				url: '/home/index',
 				data: 'offset_val='+(new Date()).getTimezoneOffset(),
 				success: function(msg) {
 						countdown(year,month,day,hour,minute)

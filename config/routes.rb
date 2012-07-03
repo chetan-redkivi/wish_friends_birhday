@@ -10,7 +10,7 @@ WishFriendsBirhday::Application.routes.draw do
 	match "/defaultMsz" => "home#defaultMsz"
 	match "/customMsz" => "home#customMsz"
 	match "/addFeedback" => "home#addFeedback"
-	match "/home/timezone" => "home#timezone"
+	match "/home/index" => "home#index"
 #	resources :myavatars
 	devise_scope :user do
 		match 'users/sign_out' => 'devise/sessions#destroy'
