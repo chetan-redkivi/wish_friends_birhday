@@ -1,9 +1,10 @@
 class HomeController < ApplicationController
   def index
 		if request.xhr?
-#			render :text => (params["offset_val"].to_i/60)*(-1)).inspect and return false
-			#render :text => (DateTime.now.new_offset(((params["offset_val"].to_i/60)*(-1))/24)).inspect and return false
-
+			@current_date = DateTime.now.new_offset((params["offset_val"].to_f/-60.0)/24).strftime('%m-%d-%Y').split('-')
+			@current_time_with_zone = DateTime.now.new_offset((params["offset_val"].to_f/-60.0)/24)
+		else
+			@current_date = DateTime.now.new_offset(5.5/24).strftime('%m-%d-%Y').split('-')
 		end
 
 		@feedback = Feedback.new
@@ -22,8 +23,6 @@ class HomeController < ApplicationController
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
 #			@current_date = DateTime.now.new_offset(@profile["timezone"]/24).strftime('%m-%d-%Y').split('-')
-			@current_date = DateTime.now.new_offset(5.5/24).strftime('%m-%d-%Y').split('-')
-
 			@total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i)).day
 			@nxt_month_total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i+1)).day
 			@upcomming = @current_date[1].to_i+10
