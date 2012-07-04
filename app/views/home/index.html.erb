@@ -17,6 +17,8 @@
 							<font color="black">
 								<%if !@current_time_with_zone.nil?%>
 									<%=@current_time_with_zone%>
+								<%else%>
+									<%=DateTime.now.new_offset(5.5/24)%>
 								<%end%>
 							</font>
 							</li>
