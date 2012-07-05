@@ -18,7 +18,8 @@ class HomeController < ApplicationController
 			@next_month_bday=[]
 			@nxt_result=[]
 			@graph = Koala::Facebook::API.new(session[:access_token])
-			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender")
+			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender,link")
+			render :text => @friends_profile.inspect and return false
 			@profile = @graph.get_object("me")
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
@@ -35,21 +36,14 @@ class HomeController < ApplicationController
 						if @current_date[1]==birthday[1]
 							#Date is same
 							$today_birthday_ids << friend["id"]
-							fb_friend_profile = @graph.get_object(friend["id"])
-							fb_profile_link = fb_friend_profile["link"]
-							@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"],"link" => fb_profile_link}
+							@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"],"link" => friend["link"]}
 						end
 						if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcomming
-							fb_friend_profile = @graph.get_object(friend["id"])
-							fb_profile_link = fb_friend_profile["link"]
-
-							@result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"link" => fb_profile_link}
+							@result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"link" => friend["link"]}
 						end
 						elsif birthday[0].to_i == @current_date[0].to_i+1
 							if birthday[1].to_i >=1 && birthday[1].to_i < (@upcomming-@total_days.to_i)
-								fb_friend_profile = @graph.get_object(friend["id"])
-								fb_profile_link = fb_friend_profile["link"]
-								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"link" => fb_profile_link}
+								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"link" => friend["link"]}
 							end
 							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
 						end

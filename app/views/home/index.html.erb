@@ -350,9 +350,9 @@
 									<blockquote>
 										<q>
 										<%if user_signed_in?%>
-											<%=image_tag(@graph.get_picture("#{Feedback.find(6).fb_id}"))%><br>
+											<%#=image_tag(@graph.get_picture("#{Feedback.find(6).fb_id}"))%><br>
 										<%end%>
-											<%=Feedback.find(6).comment%><b><%=Feedback.find(6).name%></b>
+											<%#=Feedback.find(6).comment%><b><%#=Feedback.find(6).name%></b>
 										 </q>
 									</blockquote>
 								</div>
@@ -388,7 +388,7 @@
 							<%end%>
 						</div>
 						<div class="half">
-							<h2>How to find us</h2>
+							<h2>How to find me</h2>
 							<div id="map" style="height:375px;">
 								<div class="imgHolder" ><%=gmaps("markers" => {"data" => @json}, "map_options" => {"processing" => "json", "auto_adjust" => false, "auto_zoom" => false, "zoom" => 16,"center_latitude" => "23.0396", "center_longitude" => "72.566"})%></div>
 							</div>
