@@ -19,7 +19,6 @@ class HomeController < ApplicationController
 			@nxt_result=[]
 			@graph = Koala::Facebook::API.new(session[:access_token])
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender,link")
-			render :text => @friends_profile.inspect and return false
 			@profile = @graph.get_object("me")
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
