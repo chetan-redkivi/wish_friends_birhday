@@ -350,9 +350,9 @@
 									<blockquote>
 										<q>
 										<%if user_signed_in?%>
-											<%#=image_tag(@graph.get_picture("#{Feedback.find(6).fb_id}"))%><br>
+											<%=image_tag(@graph.get_picture("#{Feedback.find(6).fb_id}"))%><br>
 										<%end%>
-											<%#=Feedback.find(6).comment%><b><%#=Feedback.find(6).name%></b>
+											<%=Feedback.find(6).comment%><b><%=Feedback.find(6).name%></b>
 										 </q>
 									</blockquote>
 								</div>
