@@ -18,7 +18,7 @@
 								<%if !@current_time_with_zone.nil?%>
 									<%=@current_time_with_zone%>
 								<%else%>
-									<%#=DateTime.now.new_offset(5.5/24)%>
+									<%=DateTime.now.new_offset(5.5/24)%>
 								<%end%>
 							</font>
 							</li>
@@ -78,7 +78,7 @@
 								var day=<%=@result[0]["birthDate"].to_i%>;       //-->Enter the count down target date DAY
 								var hour=00      //-->Enter the count down target date HOUR (24 hour clock)
 								var minute=00    //-->Enter the count down target date MINUTE
-								var tz=<%=@profile["timezone"]%>
+								var tz=5.5
 								 //-->Offset for your timezone in hours from UTC (see http://wwp.greenwichmeantime.com/index.htm to find the timezone offset for your location)
 								//-->    DO NOT CHANGE THE CODE BELOW!    <--
 								var montharray=new Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec")
