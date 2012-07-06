@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
 		if request.xhr?
 			@current_date = DateTime.now.new_offset((params["offset_val"].to_f/-60.0)/24).strftime('%m-%d-%Y').split('-')
-			@current_time_with_zone = DateTime.now.new_offset((params["offset_val"].to_f/-60.0)/24)
+			@current_time = DateTime.now.new_offset((params["offset_val"].to_f/-60.0)/24)
 		else
 			@current_date = DateTime.now.new_offset(5.5/24).strftime('%m-%d-%Y').split('-')
 		end

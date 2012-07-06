@@ -16,9 +16,9 @@
 							<li>
 							<font color="black">
 								<%if !@current_time_with_zone.nil?%>
-									<%=@current_time_with_zone%>
+									<%=@current_time%>
 								<%else%>
-									<%=DateTime.now.new_offset(5.5/24)%>
+									<%#=DateTime.now.new_offset(5.5/24)%>
 								<%end%>
 							</font>
 							</li>
