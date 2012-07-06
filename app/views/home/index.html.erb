@@ -15,10 +15,8 @@
 							<li><%=link_to "Logout","users/sign_out"%></li>
 							<li>
 							<font color="black">
-								<%if !@current_time_with_zone.nil?%>
+								<%if !@current_time.nil?%>
 									<%=@current_time.inspect%>
-								<%else%>
-									<%#=DateTime.now.new_offset(5.5/24)%>
 								<%end%>
 							</font>
 							</li>
