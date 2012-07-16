@@ -161,7 +161,7 @@
 						<%@today_birthday.each do |friend|%>
 						<tr>
 							<td width="4">
-								<%=link_to image_tag(@graph.get_picture(friend["id"])),friend["link"]%>
+								<%=link_to image_tag(@graph.get_picture(friend["id"])),friend["link"],:target => "_blank"%>
 							</td>
 							<td align="center" width="48%">
 								<%=friend["name"]%>
@@ -348,9 +348,9 @@
 									<blockquote>
 										<q>
 										<%if user_signed_in?%>
-											<%=image_tag(@graph.get_picture("#{Feedback.find(6).fb_id}"))%><br>
+											<%#=image_tag(@graph.get_picture("#{Feedback.find(6).fb_id}"))%><br>
 										<%end%>
-											<%=Feedback.find(6).comment%><b><%=Feedback.find(6).name%></b>
+											<%#=Feedback.find(6).comment%><b><%#=Feedback.find(6).name%></b>
 										 </q>
 									</blockquote>
 								</div>

@@ -14,6 +14,10 @@ gem 'gmaps4rails'
 gem 'activeadmin'
 gem 'facebook_share'
 gem "paperclip", "~> 3.0"
+gem 'omniauth-openid'
+gem 'omniauth-twitter'
+gem 'omniauth-linkedin'
+gem 'twitter'
 # Use unicorn as the web server
 # gem 'unicorn'
 
