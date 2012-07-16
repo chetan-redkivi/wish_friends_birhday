@@ -55,7 +55,7 @@ class HomeController < ApplicationController
 	def defaultMsz
 		if !session["today_birthday_ids"].blank?
 			@graph = Koala::Facebook::API.new(session[:access_token])
-			$today_birthday_ids.each do |id|
+			session["today_birthday_ids"].each do |id|
  			  image_link = BirthdayImage.find((1..5).to_a.sample).avatar.url
 				n_val = []
 				count = 0
