@@ -49,7 +49,7 @@ class HomeController < ApplicationController
 				if @result.blank?
 					@result << {"birthMonth"=> 1,"birthDate"=> 1,"flag" => 0}
 				else
-					@result = @friends_profile.sort_by { |hsh| hsh["birthday"]}
+					@result = @result.sort_by { |hsh| hsh["birthday"]}
 				end
 				if !@nxt_result.blank?
 					@nxt_result = @nxt_result.sort_by {|hsh| hsh["birthday"]}
