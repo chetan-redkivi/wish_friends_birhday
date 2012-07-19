@@ -18,6 +18,8 @@ class HomeController < ApplicationController
 			@graph = Koala::Facebook::API.new(session[:access_token])
 			@friends_profile = @graph.get_connections("me", "friends", "fields"=>"name,birthday,gender,link")
 			@profile = @graph.get_object("me")
+
+
 			session["id"] = @profile["id"]
 			session[:image]= @graph.get_picture("me",:type=>"large")
 			@total_days = (Date.new(Time.now.year,12,31).to_date<<(12-(DateTime.now.strftime('%m')).to_i)).day
@@ -34,20 +36,30 @@ class HomeController < ApplicationController
 							@today_birthday <<  {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"],"link" => friend["link"]}
 						end
 						if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcomming
-							@result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{DateTime.now.new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"link" => friend["link"]}
+							@result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{DateTime.now.new_offset(5.5/24).strftime('%B')}","id" => friend["id"],"link" => friend["link"],"flag" => 1}
 						end
 						elsif birthday[0].to_i == @current_date[0].to_i+1
 							if birthday[1].to_i >=1 && birthday[1].to_i < (@upcomming-@total_days.to_i)
-								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(@profile["timezone"]/24).strftime('%B')}","id" => friend["id"],"link" => friend["link"]}
+								@nxt_result << {"name" => friend["name"],"birthMonth"=>birthday[0],"birthDate"=>birthday[1],"birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(5.5/24).strftime('%B')}","id" => friend["id"],"link" => friend["link"]}
 							end
 							@next_month_bday << {"name" => friend["name"],"birthday" => birthday[1],"id" => friend["id"]}
 						end
 					end
 				end
-				@result = @result.sort_by { |hsh| hsh["birthday"]}
-				@nxt_result = @nxt_result.sort_by {|hsh| hsh["birthday"]}
-				@result = @result+@nxt_result
-				@next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }
+				if @result.blank?
+					@result << {"birthMonth"=> 1,"birthDate"=> 1,"flag" => 0}
+				else
+					@result = @friends_profile.sort_by { |hsh| hsh["birthday"]}
+				end
+				if !@nxt_result.blank?
+					@nxt_result = @nxt_result.sort_by {|hsh| hsh["birthday"]}
+				end
+				if !@result.blank? && !@nxt_result.blank?
+					@result = @result+@nxt_result
+				end
+				if !@next_month_bday.blank?
+					@next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }
+				end
 	  end
 	end
 
