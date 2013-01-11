@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.7'
+gem 'rails', '3.0.19'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -13,7 +13,7 @@ gem 'pg'
 gem 'gmaps4rails'
 gem 'activeadmin'
 gem 'facebook_share'
-gem "paperclip", "~> 3.0"
+gem "paperclip"
 gem 'omniauth-openid'
 gem 'omniauth-twitter'
 gem 'omniauth-linkedin'
